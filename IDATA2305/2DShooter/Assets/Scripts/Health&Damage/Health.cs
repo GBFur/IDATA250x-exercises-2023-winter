@@ -36,6 +36,8 @@ public class Health : MonoBehaviour
     public UIHealthManager uiHealthManager;
     public CountdownController countdownController;
 
+    public SpriteRenderer spriteRenderer;
+
     /// <summary>
     /// Description:
     /// Standard unity funciton called before the first frame update
@@ -47,6 +49,11 @@ public class Health : MonoBehaviour
     void Start()
     {
         SetRespawnPoint(transform.position);
+
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
     }
 
     /// <summary>
@@ -80,15 +87,10 @@ public class Health : MonoBehaviour
     {
         if (timeToBecomeDamagableAgain <= Time.time)
         {
+            Color color = spriteRenderer.color;
+            color.a = 1f;
+            spriteRenderer.color = color;
             isInvincableFromDamage = false;
-        }
-    }
-
-    private void TimerIsRunningCheck()
-    {
-        if (countdownController.timerIsRunning == false)
-        {
-            Die();
         }
     }
 
@@ -147,6 +149,9 @@ public class Health : MonoBehaviour
 
             timeToBecomeDamagableAgain = Time.time + invincibilityTime;
             isInvincableFromDamage = true;
+            Color color = spriteRenderer.color;
+            color.a = 0.5f;
+            spriteRenderer.color = color;
             currentHealth -= damageAmount;
             CheckDeath();
 
@@ -157,7 +162,6 @@ public class Health : MonoBehaviour
                 // Trigger the animation for the damaged heart
                 uiHealthManager.TriggerHearthLostAnimation(currentHealth);
             }
-
         }
     }
 
