@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CountdownController : MonoBehaviour
 {
     public Text countdownText;
-    public float timeRemaining = 30;
+    public float timeRemaining = 0;
     public bool timerIsRunning = false;
 
 
@@ -25,7 +25,7 @@ public class CountdownController : MonoBehaviour
                 timerIsRunning = false;
             }
 
-            if (timeRemaining >= 0 && GameManager.getEnemiesDefeated < GameManager.getEnemiesToDefeat)
+            if (timeRemaining >= 0 && (GameManager.getEnemiesDefeated <= GameManager.getEnemiesToDefeat))
             {
                 timeRemaining -= Time.deltaTime;
                 DisplayTime(timeRemaining);
@@ -35,6 +35,7 @@ public class CountdownController : MonoBehaviour
             {
                 Debug.Log("Time has run out!");
                 DisplayTime(timeRemaining);
+                GameManager.instance.GameOver();
                 timerIsRunning = false;
             }
         }

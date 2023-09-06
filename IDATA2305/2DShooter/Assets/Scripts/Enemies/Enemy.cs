@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
     [Header("Shooting")]
     [Tooltip("The enemy's gun components")]
     public List<ShootingController> guns = new List<ShootingController>();
+    public CountdownController countdownController;
 
     /// <summary>
     /// Enum to help with shooting modes
@@ -57,7 +58,7 @@ public class Enemy : MonoBehaviour
     /// </summary>
     private void LateUpdate()
     {
-        HandleBehaviour();       
+        HandleBehaviour();
     }
 
     /// <summary>
@@ -70,6 +71,7 @@ public class Enemy : MonoBehaviour
     /// </summary>
     private void Start()
     {
+        countdownController = FindObjectOfType<CountdownController>();
         if (movementMode == MovementModes.FollowTarget && followTarget == null)
         {
             if (GameManager.instance != null && GameManager.instance.player != null)
@@ -126,7 +128,26 @@ public class Enemy : MonoBehaviour
     {
         if (GameManager.instance != null && !GameManager.instance.gameIsOver)
         {
-            GameManager.AddScore(scoreValue);
+            if (countdownController != null)
+            {
+                //Multiplier for score by the time remaining on the countdown
+                float multiplier = countdownController.timeRemaining;
+
+                // Ensuring the multiplier is at least 1 (no score loss)
+                if (multiplier < 1)
+                {
+                    multiplier = 1;
+                }
+
+                int finalScore = Mathf.FloorToInt(scoreValue * multiplier);
+
+                GameManager.AddScore(finalScore);
+            }
+            else
+            {
+                // No CountdownController, proceed as normal
+                GameManager.AddScore(scoreValue);
+            }
         }
     }
 
@@ -143,7 +164,7 @@ public class Enemy : MonoBehaviour
         if (GameManager.instance != null && !GameManager.instance.gameIsOver)
         {
             GameManager.instance.IncrementEnemiesDefeated();
-        }       
+        }
     }
 
     /// <summary>
@@ -178,7 +199,7 @@ public class Enemy : MonoBehaviour
     protected virtual Vector3 GetDesiredMovement()
     {
         Vector3 movement;
-        switch(movementMode)
+        switch (movementMode)
         {
             case MovementModes.FollowTarget:
                 movement = GetFollowPlayerMovement();

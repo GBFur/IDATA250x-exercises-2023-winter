@@ -3548,7 +3548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countdownText: {fileID: 769523517}
-  timeRemaining: 30
+  timeRemaining: 20
   timerIsRunning: 0
 --- !u!1 &770871724
 GameObject:
@@ -5261,7 +5261,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Time left: 30'
+  m_Text: 'Enemies remaning: 30
+
+'
 --- !u!222 &1271871675
 CanvasRenderer:
   m_ObjectHideFlags: 0

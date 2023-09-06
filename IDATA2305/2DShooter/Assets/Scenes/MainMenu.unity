@@ -264,7 +264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3936081893875274733, guid: 395330b6cfb66f246a4c7682cf797c5e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 395330b6cfb66f246a4c7682cf797c5e, type: 3}
@@ -423,8 +423,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000015259, y: 25.8}
-  m_SizeDelta: {x: 328.9975, y: 169.1744}
+  m_AnchoredPosition: {x: -0.000015259, y: 7.1424}
+  m_SizeDelta: {x: 328.9975, y: 206.4897}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &840938841
 MonoBehaviour:
@@ -463,7 +463,8 @@ MonoBehaviour:
     out!
 
 
-    Have fun :)!'
+    The score is multiplied by the time remaning! So be quick and you''ll
+    get a better score :)!'
 --- !u!222 &840938842
 CanvasRenderer:
   m_ObjectHideFlags: 0

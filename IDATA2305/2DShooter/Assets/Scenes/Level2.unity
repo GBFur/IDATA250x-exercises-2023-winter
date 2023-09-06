@@ -2021,7 +2021,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countdownText: {fileID: 769523517}
-  timeRemaining: 30
+  timeRemaining: 20
   timerIsRunning: 0
 --- !u!224 &353978203 stripped
 RectTransform:
@@ -4579,7 +4579,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countdownText: {fileID: 769523517}
-  timeRemaining: 30
+  timeRemaining: 20
   timerIsRunning: 0
 --- !u!1 &770871724
 GameObject:
