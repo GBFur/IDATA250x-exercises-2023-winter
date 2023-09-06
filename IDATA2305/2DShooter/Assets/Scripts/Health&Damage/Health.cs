@@ -33,6 +33,7 @@ public class Health : MonoBehaviour
     public int currentLives = 3;
     [Tooltip("The maximum number of lives this health can have")]
     public int maximumLives = 5;
+    public UIHealthManager uiHealthManager;
 
     /// <summary>
     /// Description:
@@ -133,10 +134,17 @@ public class Health : MonoBehaviour
             {
                 Instantiate(hitEffect, transform.position, transform.rotation, null);
             }
+
+
             timeToBecomeDamagableAgain = Time.time + invincibilityTime;
             isInvincableFromDamage = true;
             currentHealth -= damageAmount;
             CheckDeath();
+
+            uiHealthManager.UpdateHealthUI(currentHealth);
+            
+            // Trigger the animation for the damaged heart
+            uiHealthManager.TriggerHearthLostAnimation(currentHealth);
         }
     }
 
@@ -164,6 +172,7 @@ public class Health : MonoBehaviour
     public GameObject deathEffect;
     [Tooltip("The effect to create when this health is damaged")]
     public GameObject hitEffect;
+
 
     /// <summary>
     /// Description:
@@ -208,7 +217,7 @@ public class Health : MonoBehaviour
         else
         {
             HandleDeathWithoutLives();
-        }      
+        }
     }
 
     /// <summary>
