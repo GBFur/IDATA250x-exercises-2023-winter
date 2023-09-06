@@ -11,6 +11,8 @@ public class Damage : MonoBehaviour
     [Tooltip("The team associated with this damage")]
     public int teamId = 0;
 
+    public GameManager gameManager;
+
     [Header("Damage Settings")]
     [Tooltip("How much damage to deal")]
     public int damageAmount = 1;

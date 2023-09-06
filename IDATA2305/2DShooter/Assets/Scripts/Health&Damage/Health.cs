@@ -16,11 +16,11 @@ public class Health : MonoBehaviour
 
     [Header("Health Settings")]
     [Tooltip("The default health value")]
-    public int defaultHealth = 1;
+    public int defaultHealth = 3;
     [Tooltip("The maximum health value")]
-    public int maximumHealth = 1;
+    public int maximumHealth = 3;
     [Tooltip("The current in game health value")]
-    public int currentHealth = 1;
+    public int currentHealth = 3;
     [Tooltip("Invulnerability duration, in seconds, after taking damage")]
     public float invincibilityTime = 3f;
     [Tooltip("Whether or not this health is always invincible")]
@@ -34,6 +34,7 @@ public class Health : MonoBehaviour
     [Tooltip("The maximum number of lives this health can have")]
     public int maximumLives = 5;
     public UIHealthManager uiHealthManager;
+    public CountdownController countdownController;
 
     /// <summary>
     /// Description:
@@ -80,6 +81,14 @@ public class Health : MonoBehaviour
         if (timeToBecomeDamagableAgain <= Time.time)
         {
             isInvincableFromDamage = false;
+        }
+    }
+
+    private void TimerIsRunningCheck()
+    {
+        if (countdownController.timerIsRunning == false)
+        {
+            Die();
         }
     }
 
@@ -141,10 +150,14 @@ public class Health : MonoBehaviour
             currentHealth -= damageAmount;
             CheckDeath();
 
-            uiHealthManager.UpdateHealthUI(currentHealth);
-            
-            // Trigger the animation for the damaged heart
-            uiHealthManager.TriggerHearthLostAnimation(currentHealth);
+            if (uiHealthManager != null)
+            {
+                uiHealthManager.UpdateHealthUI(currentHealth);
+
+                // Trigger the animation for the damaged heart
+                uiHealthManager.TriggerHearthLostAnimation(currentHealth);
+            }
+
         }
     }
 
