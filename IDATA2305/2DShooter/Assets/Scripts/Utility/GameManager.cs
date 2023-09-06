@@ -83,6 +83,9 @@ public class GameManager : MonoBehaviour
     public bool printDebugOfWinnableStatus = true;
     [Tooltip("Page index in the UIManager to go to on winning the game")]
     public int gameVictoryPageIndex = 0;
+
+    public static int getVictoryPageIndex { get; set; }
+
     [Tooltip("The effect to create upon winning the game")]
     public GameObject victoryEffect;
 
@@ -279,7 +282,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public static void SaveHighScore()
     {
-        if (score > instance.highScore)
+        if (score > instance.highScore && score != 0)
         {
             PlayerPrefs.SetInt("highscore", score);
             instance.highScore = score;

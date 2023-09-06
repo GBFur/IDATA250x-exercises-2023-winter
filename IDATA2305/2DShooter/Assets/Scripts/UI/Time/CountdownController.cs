@@ -31,7 +31,7 @@ public class CountdownController : MonoBehaviour
                 DisplayTime(timeRemaining);
             }
 
-            else
+            if (timeRemaining <= 0 && (GameManager.getEnemiesDefeated < GameManager.getEnemiesToDefeat))
             {
                 Debug.Log("Time has run out!");
                 DisplayTime(timeRemaining);
