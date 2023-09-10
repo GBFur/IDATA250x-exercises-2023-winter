@@ -1,22 +1,99 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import React, { useState } from "react";
+import { StyleSheet, View, Button, TextInput, FlatList } from "react-native";
+import GoalItem from "./components/GoalItem";
+import GoalInput from "./components/GoalInput";
 
 export default function App() {
+  const [coarseGoals, setCoarseGoals] = useState([]);
+  const [modalIsVisible, setModalIsVisible] = useState(false);
+
+  function startAddGoalHandler() {
+    setModalIsVisible(true);
+  }
+
+  function cancelAddGoalHandler() {
+    setModalIsVisible(false);
+  }
+
+  function addGoalHandler(enteredGoalText) {
+    setCoarseGoals((currentGoals) => [
+      ...currentGoals,
+      { text: enteredGoalText, id: Math.random().toString() },
+    ]);
+  }
+
+  function deleteGoalHandler(id) {
+    setCoarseGoals((currentGoals) => {
+      return currentGoals.filter((goal) => goal.id !== id);
+    });
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.asdsdjs to start workiasdsanasdsadag on your app!</Text>
-      <StatusBar style="auto" />
-      <Button title=':D'/>
-      
+    <View style={styles.appContainer}>
+      <Button
+        title="Add New Goal"
+        onPress={startAddGoalHandler}
+        color="#3b82f6"
+      />
+      <GoalInput
+        onCancel={cancelAddGoalHandler}
+        visible={modalIsVisible}
+        onAddGoal={addGoalHandler}
+      />
+      <View style={styles.goalsContainer}>
+        <FlatList
+          data={coarseGoals}
+          renderItem={(itemData) => {
+            return (
+              <GoalItem
+                text={itemData.item}
+                onDeleteItem={deleteGoalHandler}
+                id={itemData.id}
+              />
+            );
+          }}
+        />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  appContainer: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 30,
+    paddingHorizontal: 16,
+    backgroundColor: "#09090b",
+  },
+
+  inputContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderBottomWidth: 1,
+    borderColor: "#cccccc",
+    paddingBottom: 8,
+  },
+
+  textInput: {
+    borderWidth: 1,
+    borderColor: "#cccccc",
+    width: "70%",
+    marginRight: 4,
+    padding: 4,
+  },
+
+  goalsContainer: {
+    marginTop: 16,
+    flex: 6,
+  },
+
+  goalItemText: {
+    borderWidth: 1,
+    borderRadius: 4,
+    paddingLeft: 8,
+    padding: 4,
+    marginVertical: 4,
   },
 });
