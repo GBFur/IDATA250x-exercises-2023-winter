@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Button, TextInput, FlatList } from "react-native";
-import GoalItem from "./components/GoalItem";
+import { Button, FlatList, StyleSheet, View } from "react-native";
 import GoalInput from "./components/GoalInput";
+import GoalItem from "./components/GoalItem";
 
 export default function App() {
   const [coarseGoals, setCoarseGoals] = useState([]);
@@ -61,9 +61,8 @@ export default function App() {
 const styles = StyleSheet.create({
   appContainer: {
     flex: 1,
-    paddingTop: 30,
+    paddingTop: 50,
     paddingHorizontal: 16,
-    backgroundColor: "#09090b",
   },
 
   inputContainer: {

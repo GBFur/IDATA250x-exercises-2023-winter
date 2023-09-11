@@ -30,7 +30,6 @@ function GoalItem({ text, onDeleteItem }) {
 
 const styles = StyleSheet.create({
   goalItem: {
-    backgroundColor: "#09090b",
     borderColor: "grey",
     borderWidth: 1,
     borderRadius: 4,
