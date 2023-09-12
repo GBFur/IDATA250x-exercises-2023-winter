@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
+import ExpensesChart from "./ExpensesChart";
 
 function ExpensesOutput() {
   const [expenses, setExpenses] = useState([]);
@@ -18,15 +19,20 @@ function ExpensesOutput() {
     }
   };
 
-useFocusEffect(
-  React.useCallback(() => {
-    _retrieveData();
-  }, [])
-);
+  useFocusEffect(
+    React.useCallback(() => {
+      _retrieveData();
+    }, [])
+  );
 
   return (
     <View>
-      <ExpensesList expenses={expenses} />
+      <View>
+        <ExpensesChart expenses={expenses} />
+      </View>
+      <View>
+        <ExpensesList expenses={expenses} />
+      </View>
     </View>
   );
 }

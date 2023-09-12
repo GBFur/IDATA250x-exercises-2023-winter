@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
 function PickerComponent({ onValueChange }) {
-  const [selectedValue, setSelectedValue] = useState("food");
+  const [selectedValue, setSelectedValue] = useState("");
 
   const handleValueChange = (value) => {
     setSelectedValue(value);

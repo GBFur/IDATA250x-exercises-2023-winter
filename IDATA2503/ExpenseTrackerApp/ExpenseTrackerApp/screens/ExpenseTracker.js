@@ -1,10 +1,14 @@
 // src/screens/HomeScreen.js
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import ExpensesOutput from "../components/ExpensesOutput";
 
 function ExpenseTracker({ navigation }) {
-  return <ExpensesOutput />;
+  return (
+    <View>
+      <ExpensesOutput />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
