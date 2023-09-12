@@ -1,31 +1,32 @@
-import { View } from "react-native";
 import ExpensesList from "./ExpensesList";
+import React, { useState, useEffect } from "react";
+import { View } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "@react-navigation/native";
 
-const DUMMY_EXPENSES = [
-  {
-    id: "e1",
-    title: "Toilet Paper",
-    amount: 94.12,
-    date: new Date("2023-07-14"),
-  },
-  {
-    id: "e2",
-    title: "new tv",
-    amount: 48.22,
-    date: new Date("2023-04-14"),
-  },
-  {
-    id: "e3",
-    title: "A book",
-    amount: 50.32,
-    date: new Date("2023-06-14"),
-  },
-];
+function ExpensesOutput() {
+  const [expenses, setExpenses] = useState([]);
 
-function ExpensesOutput({ expenses }) {
+  const _retrieveData = async () => {
+    try {
+      const value = await AsyncStorage.getItem("@MySuperStore:expenses");
+      if (value !== null) {
+        setExpenses(JSON.parse(value));
+      }
+    } catch (error) {
+      console.error("Error retrieving data: ", error);
+    }
+  };
+
+useFocusEffect(
+  React.useCallback(() => {
+    _retrieveData();
+  }, [])
+);
+
   return (
     <View>
-      <ExpensesList expenses={DUMMY_EXPENSES} />
+      <ExpensesList expenses={expenses} />
     </View>
   );
 }

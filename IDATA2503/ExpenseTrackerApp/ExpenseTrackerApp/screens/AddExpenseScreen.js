@@ -1,18 +1,56 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import React, { useState } from "react";
-import { Button, StatusBar, StyleSheet, Text, View } from "react-native";
+import { Button, StatusBar, StyleSheet, TextInput, View } from "react-native";
 import CustomTextInput from "../components/CustomTextInput";
 import PickerComponent from "../components/PickerComponent";
-import DatePicker from "react-native-datepicker";
 
-function AddExpenseScreen({ navigation }) {
+function AddExpenseScreen({ navigation, onAddExpense }) {
   const [enteredExpenseText, setEnteredExpenseText] = useState("");
   const [enteredExpenseAmount, setEnteredExpenseAmount] = useState("");
-  const [enteredExpenseTag, setEnteredExpenseTag] = useState("food");
+  const [enteredExpenseTag, setEnteredExpenseTag] = useState("");
   const [enteredExpenseDate, setEnteredExpenseDate] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
-  const addExpenseHandler = (expense) => {
-    console.log("Saving expenese:", expense);
-    navigation.navigate("ExpenseTracker", { newExpense: expense });
+  const storeData = async (newExpense) => {
+    try {
+      const existingExpenses = await AsyncStorage.getItem(
+        "@MySuperStore:expenses"
+      );
+      const expenses = existingExpenses ? JSON.parse(existingExpenses) : [];
+      expenses.push(newExpense);
+      console.log(newExpense);
+
+      await AsyncStorage.setItem(
+        "@MySuperStore:expenses",
+        JSON.stringify(expenses)
+      );
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "ExpenseTracker" }],
+      });
+    } catch (error) {
+      console.error("Error saving data: ", error);
+    }
+  };
+
+  const toggleDatePicker = () => {
+    console.log("hello");
+    setShowDatePicker(!showDatePicker);
+  };
+
+  const onChange = ({ type }, selectedDate) => {
+    const currentDate = selectedDate || enteredExpenseDate;
+
+    if (type === "set") {
+      setEnteredExpenseDate(currentDate);
+    }
+
+    toggleDatePicker(); // Close the date picker whether canceled or set
+  };
+
+  const addExpenseHandler = (newExpense) => {
+    storeData(newExpense);
   };
 
   return (
@@ -36,15 +74,27 @@ function AddExpenseScreen({ navigation }) {
           inputMode="numeric"
           onChangeText={setEnteredExpenseAmount}
         />
-        <DatePicker
-          date={enteredExpenseDate}
-          onDateChange={(date) => setEnteredExpenseDate(date)}
+
+        <TextInput
+          style={[styles.textInput, { width: "50%" }]}
+          placeholder="Date"
+          onPressIn={toggleDatePicker}
+          value={enteredExpenseDate.toLocaleDateString()}
         />
+
+        {showDatePicker && (
+          <DateTimePicker
+            mode="date"
+            display="spinner"
+            value={enteredExpenseDate}
+            onChange={onChange}
+          />
+        )}
       </View>
 
       <View style={styles.actionContainer}>
         <View style={styles.pickerWrapper}>
-          <PickerComponent onSelectTag={(tag) => setEnteredExpenseTag(tag)} />
+          <PickerComponent onValueChange={(tag) => setEnteredExpenseTag(tag)} />
         </View>
         <View style={styles.buttonsContainer}>
           <View style={styles.button}>
@@ -85,6 +135,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     borderColor: "#cccccc",
+    color: "white",
     borderBottomWidth: 1,
     width: "100%",
     marginRight: 4,

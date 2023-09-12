@@ -7,11 +7,13 @@ function ExpensesList({ expenses }) {
       data={expenses}
       renderItem={(itemData) => (
         <ExpenseItem
-          title={itemData.item.title}
+          title={itemData.item.text}
           amount={itemData.item.amount}
           date={itemData.item.date}
+          tag={itemData.item.tag}
         />
       )}
+      keyExtractor={(item) => item.id}
     />
   );
 }

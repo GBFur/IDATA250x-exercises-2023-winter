@@ -1,17 +1,17 @@
-import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import HomeScreen from "./screens/HomeScreen";
-import AddExpenseScreen from "./screens/AddExpenseScreen";
+import React from "react";
 import { Button, View } from "react-native";
 import { GlobalStyles } from "./constants/styles";
+import AddExpenseScreen from "./screens/AddExpenseScreen";
+import ExpenseTracker from "./screens/ExpenseTracker";
 
 const HeaderRightButton = ({ navigation }) => (
-  <View style={{padding: 5}}>
+  <View style={{ padding: 5 }}>
     <Button
       onPress={() => navigation.navigate("AddExpense")}
-      title="+"
-      color={GlobalStyles.colors.primary900}
+      title="Add expense"
+      color={GlobalStyles.colors.secondary900}
     />
   </View>
 );
@@ -27,7 +27,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          cardStyle: { backgroundColor: GlobalStyles.colors.primary900},
+          cardStyle: { backgroundColor: GlobalStyles.colors.primary950 },
           headerStyle: {
             backgroundColor: GlobalStyles.colors.secondary600,
           },
@@ -40,7 +40,7 @@ export default function App() {
       >
         <Stack.Screen
           name="ExpenseTracker"
-          component={HomeScreen}
+          component={ExpenseTracker}
           options={({ navigation }) => ({
             headerRight: headerRight(navigation),
           })}
