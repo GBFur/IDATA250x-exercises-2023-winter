@@ -1,6 +1,6 @@
 import ExpensesList from "./ExpensesList";
 import React, { useState, useEffect } from "react";
-import { View } from "react-native";
+import { View, Button } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 import ExpensesChart from "./ExpensesChart";
@@ -19,6 +19,15 @@ function ExpensesOutput() {
     }
   };
 
+  const clearAsyncStorage = async () => {
+    try {
+      await AsyncStorage.clear();
+      setExpenses([]); // Clearing the local state as well
+    } catch (error) {
+      console.error("Error clearing AsyncStorage: ", error);
+    }
+  };
+
   useFocusEffect(
     React.useCallback(() => {
       _retrieveData();
@@ -28,7 +37,8 @@ function ExpensesOutput() {
   return (
     <View>
       <View>
-        <ExpensesChart expenses={expenses} />
+        <Button title="clear (DEMO)" onPress={clearAsyncStorage} />
+        {expenses.length > 0 && <ExpensesChart expenses={expenses} />}
       </View>
       <View>
         <ExpensesList expenses={expenses} />

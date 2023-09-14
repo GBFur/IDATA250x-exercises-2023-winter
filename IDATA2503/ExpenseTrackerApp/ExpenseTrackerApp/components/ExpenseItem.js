@@ -1,23 +1,22 @@
 import React from "react";
-import { StyleSheet, View, Text, Pressable } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../constants/styles";
 
 function ExpenseItem({ title, amount, date, tag }) {
   return (
     <View style={styles.expenseItem}>
-      <Pressable
-        android_ripple={{ color: "#ff0000" }}
-        style={styles.rippleContainer}
-      >
-        <View style={styles.textContainer}>
+      <View style={styles.textContainer}>
+        <View style={styles.leftContainer}>
           <Text style={styles.titleText}>{title}</Text>
-          <Text style={styles.dateText}>{tag}</Text>
+        </View>
+        <Text style={styles.dateText}>{tag}</Text>
+        <View style={styles.rightContainer}>
+          <Text style={styles.amountText}>${amount}</Text>
           <Text style={styles.dateText}>
             {new Date(date).toLocaleDateString()}
           </Text>
         </View>
-        <Text style={styles.amountText}>${amount}</Text>
-      </Pressable>
+      </View>
     </View>
   );
 }
@@ -25,18 +24,26 @@ function ExpenseItem({ title, amount, date, tag }) {
 const styles = StyleSheet.create({
   expenseItem: {
     borderColor: GlobalStyles.colors.primary900,
-    height: 80,
-    justifyContent: "center",
+    flex: 1,
     borderWidth: 2,
     marginVertical: 5,
     flexDirection: "row",
-    alignItems: "center",
   },
   textContainer: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
-    flex: 1,
+  },
+  leftContainer: {
+    flexDirection: "column",
+    alignItems: "flex-start",
+    alignContent: "center",
+    width: "70%",
+  },
+  rightContainer: {
+    flexDirection: "column",
+    alignItems: "flex-end",
+    justifyContent: "flex-start",
+    width: "20%",
   },
   titleText: {
     color: "white",
@@ -54,6 +61,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 14,
     padding: 8,
+    justifyContent: "center",
     marginLeft: "auto",
   },
   rippleContainer: {

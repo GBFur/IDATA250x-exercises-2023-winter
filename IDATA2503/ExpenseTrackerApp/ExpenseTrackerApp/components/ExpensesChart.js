@@ -54,6 +54,7 @@ function ExpensesChart({ expenses }) {
         data={chartData}
         frontColor={GlobalStyles.colors.secondary700}
         hideRules={true}
+        maxValue={Math.max(...Object.values(tagCount)) + 1}
         barWidth={barWidth}
         hideAxesAndRules={true}
         renderTooltip={(item, index) => {
@@ -80,9 +81,6 @@ function ExpensesChart({ expenses }) {
 const styles = StyleSheet.create({
   chartContainer: {
     width: "50%",
-  },
-  chart: {
-    width: "50%", // set chart width to 100%
   },
 });
 

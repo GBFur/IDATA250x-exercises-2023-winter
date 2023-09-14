@@ -19,7 +19,6 @@ function AddExpenseScreen({ navigation, onAddExpense }) {
       );
       const expenses = existingExpenses ? JSON.parse(existingExpenses) : [];
       expenses.push(newExpense);
-      console.log(newExpense);
 
       await AsyncStorage.setItem(
         "@MySuperStore:expenses",
@@ -35,7 +34,6 @@ function AddExpenseScreen({ navigation, onAddExpense }) {
   };
 
   const toggleDatePicker = () => {
-    console.log("hello");
     setShowDatePicker(!showDatePicker);
   };
 
@@ -163,7 +161,7 @@ const styles = StyleSheet.create({
     minWidth: "40%",
     width: "20%",
     borderColor: "#cccccc",
-    borderWidth: 1,
+    borderBottomWidth: 1,
   },
   buttonsContainer: {
     flexDirection: "row",
