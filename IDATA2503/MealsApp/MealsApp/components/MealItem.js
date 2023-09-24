@@ -1,23 +1,28 @@
 import { Pressable, Text, View, Image, StyleSheet } from "react-native";
+import MealDetails from "./MealDetails";
 
-function MealItem({ title, imageUrl, duration, complexity, affordability }) {
+function MealItem({
+  title,
+  imageUrl,
+  duration,
+  complexity,
+  affordability,
+  onPress,
+}) {
+
   return (
     <View style={styles.mealItem}>
       <View style={styles.container}>
-        <Pressable android_ripple={{ color: "#b8b8b8" }}>
+        <Pressable android_ripple={{ color: "#b8b8b8" }} onPress={onPress}>
           <View style={styles.imageContainer}>
             <Image style={styles.image} source={{ uri: imageUrl }} />
             <Text style={styles.title}>{title}</Text>
           </View>
-          <View style={styles.informationContainer}>
-            <Text style={styles.informationItem}>{duration}m</Text>
-            <Text style={styles.informationItem}>
-              {complexity.toUpperCase()}
-            </Text>
-            <Text style={styles.informationItem}>
-              {affordability.toUpperCase()}
-            </Text>
-          </View>
+          <MealDetails
+            duration={duration}
+            complexity={complexity}
+            affordability={affordability}
+          />
         </Pressable>
       </View>
     </View>
@@ -48,15 +53,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  },
-  informationContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    height: 30,
-  },
-  informationItem: {
-    marginHorizontal: 10,
   },
 });
 
