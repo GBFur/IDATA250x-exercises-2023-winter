@@ -1,18 +1,25 @@
+import { useLayoutEffect } from "react";
 import {
-  Text,
-  View,
   Image,
-  StyleSheet,
   ScrollView,
-  Button,
+  StyleSheet,
+  Text,
+  View
 } from "react-native";
-import { MEALS } from "../data/dummy-data";
-import MealDetails from "../components/MealDetails";
-import React, { useLayoutEffect } from "react";
 import IconButton from "../components/IconButton";
+import MealDetails from "../components/MealDetails";
+import { MEALS } from "../data/dummy-data";
+import { useDispatch, useSelector } from "react-redux";
+import { favoriteActions } from "../store/redux/favorites";
 
 function MealDetailScreen({ route, navigation }) {
+  // const favoriteMealContext = useContext(FavoritesContext);
+  const favoriteMealIds = useSelector(state => state.favoriteMeals.ids)
+  const dispatch = useDispatch();
+
   const mealId = route.params.mealId;
+
+  const mealIsFavorite = favoriteMealIds.includes(mealId);
 
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
@@ -21,17 +28,23 @@ function MealDetailScreen({ route, navigation }) {
       headerRight: () => {
         return (
           <IconButton
-            onPress={headerButtonPressHandler}
+            onPress={changeFavoriteStatusHandler}
             color="black"
-            icon="star"
+            icon={mealIsFavorite ? "star" : "star-outline"}
           />
         );
       },
     });
-  }, [navigation, headerButtonPressHandler]);
+  }, [navigation, changeFavoriteStatusHandler]);
 
-  function headerButtonPressHandler() {
-    console.log("hello");
+  function changeFavoriteStatusHandler() {
+    if (mealIsFavorite) {
+      //favoriteMealContext.removeFavorite(mealId);
+      dispatch(favoriteActions.removeFavorite(mealId));
+    } else {
+      dispatch(favoriteActions.addFavorite(mealId));
+      //favoriteMealContext.addFavorite(mealId);
+    }
   }
 
   return (
@@ -77,12 +90,10 @@ function MealDetailScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#f9f9f9",
-    borderRadius: 10,
-    elevation: 25,
-    marginBottom: 5,
+    elevation: 5,
+    marginBottom: 3,
   },
   image: {
-    borderRadius: 10,
     width: "100%",
     height: 200,
   },
