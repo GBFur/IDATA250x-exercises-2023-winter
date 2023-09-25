@@ -1,13 +1,16 @@
 // src/screens/HomeScreen.js
-import React from "react";
-import { StyleSheet, View } from "react-native";
+import React, { useContext } from "react";
+import { View } from "react-native";
 import ExpensesOutput from "../components/ExpensesOutput";
+import { ExpensesContext } from "../store/expenses-context";
 
 function ExpenseTracker() {
+  const expensesContext = useContext(ExpensesContext);
+
   return (
-    <View>
-      <ExpensesOutput />
-    </View>
+
+      <ExpensesOutput expenses={expensesContext.expenses} />
+
   );
 }
 

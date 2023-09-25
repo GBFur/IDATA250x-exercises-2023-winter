@@ -5,6 +5,7 @@ import { Button, View } from "react-native";
 import { GlobalStyles } from "./constants/styles";
 import AddExpenseScreen from "./screens/AddExpenseScreen";
 import ExpenseTracker from "./screens/ExpenseTracker";
+import ExpensesContextProvider from "./store/expenses-context";
 
 const HeaderRightButton = ({ navigation }) => (
   <View style={{ padding: 5 }}>
@@ -24,29 +25,31 @@ const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          cardStyle: { backgroundColor: GlobalStyles.colors.primary950 },
-          headerStyle: {
-            backgroundColor: GlobalStyles.colors.secondary600,
-          },
-          headerTitleStyle: {
-            fontWeight: "bold",
-            fontSize: 24,
-            color: "white",
-          },
-        }}
-      >
-        <Stack.Screen
-          name="ExpenseTracker"
-          component={ExpenseTracker}
-          options={({ navigation }) => ({
-            headerRight: headerRight(navigation),
-          })}
-        />
-        <Stack.Screen name="AddExpense" component={AddExpenseScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <ExpensesContextProvider>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            cardStyle: { backgroundColor: GlobalStyles.colors.primary950 },
+            headerStyle: {
+              backgroundColor: GlobalStyles.colors.secondary600,
+            },
+            headerTitleStyle: {
+              fontWeight: "bold",
+              fontSize: 24,
+              color: "white",
+            },
+          }}
+        >
+          <Stack.Screen
+            name="ExpenseTracker"
+            component={ExpenseTracker}
+            options={({ navigation }) => ({
+              headerRight: headerRight(navigation),
+            })}
+          />
+          <Stack.Screen name="AddExpense" component={AddExpenseScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ExpensesContextProvider>
   );
 }
