@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, View, TextInput, StyleSheet, Alert } from "react-native";
+import { Button, View, TextInput, StyleSheet, Alert, Text } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import CustomTextInput from "./CustomTextInput";
 
@@ -47,17 +47,19 @@ function ExpanseForm({ onAddExpense, navigation }) {
       <View style={styles.inputWrapper}>
         <CustomTextInput
           style={styles.textInput}
-          placeholder="Custom Daily groceries"
+          placeholder="Expense description"
           textColor="#cccccccc"
           inputMode="text"
           onChangeText={setEnteredExpenseText}
+          prefix="Title"
         />
       </View>
 
       <View style={styles.rowWrapper}>
+        <Text style={{ color: "white", marginTop: 9 }}>$</Text>
         <CustomTextInput
           style={styles.expenseAmount}
-          placeholder="$Amount"
+          placeholder="Amount"
           textColor="#cccccccc"
           inputMode="numeric"
           keyboardType="decimal-pad"
@@ -65,7 +67,7 @@ function ExpanseForm({ onAddExpense, navigation }) {
         />
 
         <TextInput
-          style={[styles.textInput, { width: "50%" }]}
+          style={[styles.textInput, { width: "48%" }]}
           placeholder="Date"
           onPressIn={toggleDatePicker}
           value={enteredExpenseDate.toLocaleDateString()}
@@ -118,18 +120,18 @@ const styles = StyleSheet.create({
     width: "100%",
     marginRight: 4,
     padding: 4,
+    marginLeft: 5,
   },
   expenseAmount: {
     borderColor: "#cccccc",
+    width: "50%",
     borderBottomWidth: 1,
-    width: "20%",
     marginRight: 4,
     padding: 4,
   },
   rowWrapper: {
     paddingTop: 32,
     flexDirection: "row",
-    justifyContent: "space-between",
     paddingBottom: 32,
   },
   actionContainer: {

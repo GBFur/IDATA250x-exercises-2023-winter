@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, TextInput } from "react-native";
+import { StyleSheet, TextInput, Text } from "react-native";
 
 function CustomTextInput(props) {
   return (
@@ -20,4 +20,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CustomTextInput; // corrected export
+export default CustomTextInput;

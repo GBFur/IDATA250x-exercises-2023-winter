@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
   picker: {
     width: "100%",
     color: "white",
+    padding: 4, // To match other input fields
   },
 });
 
