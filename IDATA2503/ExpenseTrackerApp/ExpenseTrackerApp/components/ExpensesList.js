@@ -1,15 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FlatList, View } from "react-native";
 import ExpenseItem from "./ExpenseItem";
 import { Swipeable } from "react-native-gesture-handler";
 import { TrashIcon } from "react-native-heroicons/outline";
+import { ExpensesContext } from "../store/expenses-context";
 
-function ExpensesList({ expenses, onDeleteExpense }) {
-
-  const onExpenseDelete = (id) => {
-    onDeleteExpense(id);
-  }
-
+function ExpensesList({ expenses, onExpenseDelete }) {
 
   const renderRightActions = () => {
     return (
@@ -36,6 +32,7 @@ function ExpensesList({ expenses, onDeleteExpense }) {
           onSwipeableOpen={() => onExpenseDelete(itemData.item.id)}
         >
           <ExpenseItem
+            key={itemData.item.id}
             title={itemData.item.text}
             amount={itemData.item.amount}
             date={itemData.item.date}

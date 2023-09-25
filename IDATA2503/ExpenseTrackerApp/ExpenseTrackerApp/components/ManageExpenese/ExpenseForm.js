@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Button, View, TextInput, StyleSheet } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import CustomTextInput from "../components/CustomTextInput";
-import PickerComponent from "../components/PickerComponent";
+import CustomTextInput from "./CustomTextInput";
+
+import PickerComponent from "../PickerComponent";
 
 function ExpanseForm({ onAddExpense, navigation }) {
   const [enteredExpenseText, setEnteredExpenseText] = useState("");
