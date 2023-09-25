@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Button, View, TextInput, StyleSheet } from "react-native";
+import { Button, View, TextInput, StyleSheet, Alert } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import CustomTextInput from "./CustomTextInput";
 
 import PickerComponent from "../PickerComponent";
+import ExpenseItem from "../ExpenseItem";
 
 function ExpanseForm({ onAddExpense, navigation }) {
   const [enteredExpenseText, setEnteredExpenseText] = useState("");
@@ -21,6 +22,25 @@ function ExpanseForm({ onAddExpense, navigation }) {
     if (type === "set") setEnteredExpenseDate(currentDate);
     toggleDatePicker();
   };
+
+  function saveExpenseHandler() {
+    const newExpense = {
+      text: enteredExpenseText,
+      amount: enteredExpenseAmount,
+      tag: enteredExpenseTag,
+      date: enteredExpenseDate,
+    };
+
+    const amountIsValid = !isNaN(newExpense.amount) && newExpense.amount > 0;
+    const textIsValid = newExpense.text.trim().length > 0;
+
+    if (!amountIsValid || !textIsValid) {
+      Alert.alert("Invalid input", "Please check your input values");
+      return;
+    }
+
+    onAddExpense(newExpense);
+  }
 
   return (
     <View style={styles.container}>
@@ -76,18 +96,7 @@ function ExpanseForm({ onAddExpense, navigation }) {
             />
           </View>
           <View style={styles.button}>
-            <Button
-              title="Save Expense"
-              onPress={() => {
-                const newExpense = {
-                  text: enteredExpenseText,
-                  amount: enteredExpenseAmount,
-                  tag: enteredExpenseTag,
-                  date: enteredExpenseDate,
-                };
-                onAddExpense(newExpense);
-              }}
-            />
+            <Button title="Save Expense" onPress={saveExpenseHandler} />
           </View>
         </View>
       </View>

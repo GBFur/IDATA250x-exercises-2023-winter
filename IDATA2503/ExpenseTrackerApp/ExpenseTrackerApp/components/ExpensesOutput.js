@@ -15,7 +15,7 @@ function ExpensesOutput({ expenses }) {
       Animated.sequence([
         Animated.timing(animateButton, {
           toValue: 1,
-          duration: 1000, // 1 second to move to the animated position
+          duration: 600, // 1 second to move to the animated position
           useNativeDriver: false,
         }),
         Animated.delay(5000), // Stay in the animated position for 4 seconds
@@ -53,11 +53,11 @@ function ExpensesOutput({ expenses }) {
           ...styles.buttonContainer,
           marginBottom: animateButton.interpolate({
             inputRange: [0, 1],
-            outputRange: [-50, 50], // animate from -50px to 0px from the bottom
+            outputRange: [-50, 20], // animate from -50px to 0px from the bottom
           }),
         }}
       >
-        <Button title="Undo" onPress={undoDeleteHandler} />
+        <Button title="Undo Delete" onPress={undoDeleteHandler} />
       </Animated.View>
     </View>
   );
