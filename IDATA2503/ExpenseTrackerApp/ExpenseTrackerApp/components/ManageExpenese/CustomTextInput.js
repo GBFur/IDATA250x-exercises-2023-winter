@@ -8,6 +8,7 @@ function CustomTextInput(props) {
       placeholder={props.placeholder}
       placeholderTextColor={props.textColor}
       inputMode={props.inputMode}
+      keyboardType={props.keyboardType}
       onChangeText={props.onChangeText}
     />
   );

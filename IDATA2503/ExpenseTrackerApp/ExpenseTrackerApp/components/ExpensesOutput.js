@@ -28,11 +28,25 @@ function ExpensesOutput() {
     }
   };
 
+  const handleDeleteExpense = (id) => {
+    const filteredExpenses = expenses.filter((expense) => expense.id !== id);
+    setExpenses(filteredExpenses);
+    storeData(filteredExpenses);
+  };
+
   useFocusEffect(
     React.useCallback(() => {
       _retrieveData();
     }, [])
   );
+
+  const storeData = async (updatedExpenses) => {
+    try {
+      await AsyncStorage.setItem("@MySuperStore:expenses", JSON.stringify(updatedExpenses));
+    } catch (error) {
+      console.error("Error updating data: ", error);
+    }
+  };
 
   return (
     <View>
@@ -41,7 +55,7 @@ function ExpensesOutput() {
         {expenses.length > 0 && <ExpensesChart expenses={expenses} />}
       </View>
       <View>
-        <ExpensesList expenses={expenses} />
+        <ExpensesList expenses={expenses} onDeleteExpense={handleDeleteExpense} />
       </View>
     </View>
   );

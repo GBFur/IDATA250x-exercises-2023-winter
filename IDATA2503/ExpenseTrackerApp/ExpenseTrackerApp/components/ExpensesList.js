@@ -1,26 +1,29 @@
 import React from "react";
-import { FlatList, TouchableOpacity } from "react-native";
+import { FlatList, View } from "react-native";
 import ExpenseItem from "./ExpenseItem";
 import { Swipeable } from "react-native-gesture-handler";
+import { TrashIcon } from "react-native-heroicons/outline";
 
-function ExpensesList({ expenses }) {
-  const deleteItem = (id) => {
-    //delete item from state
-  };
+function ExpensesList({ expenses, onDeleteExpense }) {
 
-  const renderRightActions = (item) => {
+  const onExpenseDelete = (id) => {
+    onDeleteExpense(id);
+  }
+
+
+  const renderRightActions = () => {
     return (
-      <TouchableOpacity
-        onPress={() => deleteItem(item.id)}
+      <View
         style={{
           backgroundColor: "red",
+          width: "100%", // or any width you want to show when user swipes
+          alignItems: "center",
           justifyContent: "center",
-          alignItems: "flex-end",
-          flex: 1,
           padding: 20,
         }}
       >
-      </TouchableOpacity>
+        <TrashIcon color="white" size={24} />
+      </View>
     );
   };
 
@@ -28,7 +31,10 @@ function ExpensesList({ expenses }) {
     <FlatList
       data={expenses}
       renderItem={(itemData) => (
-        <Swipeable renderRightActions={() => renderRightActions(itemData.item)}>
+        <Swipeable
+          renderRightActions={() => renderRightActions()}
+          onSwipeableOpen={() => onExpenseDelete(itemData.item.id)}
+        >
           <ExpenseItem
             title={itemData.item.text}
             amount={itemData.item.amount}

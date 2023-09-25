@@ -5,17 +5,15 @@ import { GlobalStyles } from "../constants/styles";
 function ExpenseItem({ title, amount, date, tag }) {
   return (
     <View style={styles.expenseItem}>
-      <View style={styles.textContainer}>
-        <View style={styles.leftContainer}>
-          <Text style={styles.titleText}>{title}</Text>
-        </View>
-        <Text style={styles.dateText}>{tag}</Text>
-        <View style={styles.rightContainer}>
-          <Text style={styles.amountText}>${amount}</Text>
-          <Text style={styles.dateText}>
-            {new Date(date).toLocaleDateString()}
-          </Text>
-        </View>
+      <View style={styles.leftContainer}>
+        <Text style={styles.titleText} numberOfLines={2}>{title}</Text>
+        <Text style={styles.tagText}>{tag}</Text>
+      </View>
+      <View style={styles.rightContainer}>
+        <Text style={styles.amountText}>${amount}</Text>
+        <Text style={styles.dateText}>
+          {new Date(date).toLocaleDateString()}
+        </Text>
       </View>
     </View>
   );
@@ -26,46 +24,41 @@ const styles = StyleSheet.create({
     borderColor: GlobalStyles.colors.primary900,
     flex: 1,
     borderWidth: 2,
-    marginVertical: 5,
+    marginVertical: 2,
     flexDirection: "row",
-  },
-  textContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 8,
   },
   leftContainer: {
     flexDirection: "column",
     alignItems: "flex-start",
-    alignContent: "center",
+    justifyContent: "space-between",
     width: "70%",
   },
   rightContainer: {
     flexDirection: "column",
     alignItems: "flex-end",
-    justifyContent: "flex-start",
-    width: "20%",
+    justifyContent: "space-between",
+    width: "30%",
   },
   titleText: {
     color: "white",
     fontSize: 20,
-    paddingLeft: 24,
     fontWeight: "bold",
+    flexWrap: 'wrap',
+  },
+  tagText: {
+    color: "white",
+    fontSize: 14,
   },
   amountText: {
     color: "white",
     fontSize: 18,
-    padding: 8,
-    alignSelf: "flex-end",
   },
   dateText: {
     color: "white",
     fontSize: 14,
-    padding: 8,
-    justifyContent: "center",
-    marginLeft: "auto",
-  },
-  rippleContainer: {
-    flex: 1,
   },
 });
 
