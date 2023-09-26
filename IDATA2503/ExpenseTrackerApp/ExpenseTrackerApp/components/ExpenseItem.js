@@ -21,10 +21,10 @@ function ExpenseItem({ title, amount, date, tag }) {
 
 const styles = StyleSheet.create({
   expenseItem: {
+    backgroundColor: GlobalStyles.colors.primary950,
     borderColor: GlobalStyles.colors.primary900,
     flex: 1,
-    borderWidth: 2,
-    marginVertical: 2,
+    borderWidth: 1,
     flexDirection: "row",
     alignItems: 'center',
     justifyContent: 'space-between',

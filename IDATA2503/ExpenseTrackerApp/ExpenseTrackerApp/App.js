@@ -1,5 +1,5 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { TransitionSpecs, createStackNavigator, CardStyleInterpolators } from "@react-navigation/stack";
 import React from "react";
 import { Button, View } from "react-native";
 import { GlobalStyles } from "./constants/styles";
@@ -38,6 +38,7 @@ export default function App() {
               fontSize: 24,
               color: "white",
             },
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
           }}
         >
           <Stack.Screen
@@ -45,6 +46,7 @@ export default function App() {
             component={ExpenseTracker}
             options={({ navigation }) => ({
               headerRight: headerRight(navigation),
+              animation: "slide_from_right",
             })}
           />
           <Stack.Screen name="AddExpense" component={AddExpenseScreen} />

@@ -12,6 +12,13 @@ function ExpensesOutput({ expenses }) {
   const animateButton = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
   const [countdown, setCountdown] = useState(5);
 
+
+  //TODO:
+  //https://www.npmjs.com/package/react-native-toast-notifications
+
+  //TODO: 
+  //ID is not updated when undoing delete (there is a new ID)
+
   // fetch expenses from server
   useEffect(() => {
     async function getExpenses() {
