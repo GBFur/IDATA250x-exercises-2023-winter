@@ -87,10 +87,11 @@ function ExpensesContextProvider({ children }) {
   };
   const [expenseState, dispatch] = useReducer(expensesReducer, initialState);
 
-  function addExpenseHandler({ text, amount, date, tag }) {
+  function addExpenseHandler({ id, text, amount, date, tag }) {
     dispatch({
       type: "ADD_EXPENSE",
       payload: {
+        id,
         text,
         amount,
         date,
