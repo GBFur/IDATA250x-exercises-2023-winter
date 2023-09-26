@@ -3,6 +3,7 @@ import { createContext, useReducer } from "react";
 export const ExpensesContext = createContext({
   expenses: [],
   addExpense: ({ text, amount, date, tag }) => {},
+  setExpenses: (expenses) => {},
   deleteExpense: (id) => {},
   updateExpense: (id, { text, amount, date, tag }) => {},
   undoDelete: () => {},
@@ -11,9 +12,8 @@ export const ExpensesContext = createContext({
 function expensesReducer(state, action) {
   switch (action.type) {
     case "ADD_EXPENSE": {
-      const id = new Date().toString() + Math.random().toString();
       const newExpense = {
-        id: id,
+        id: action.payload.id,
         text: action.payload.text,
         amount: action.payload.amount,
         date: action.payload.date,
@@ -21,15 +21,21 @@ function expensesReducer(state, action) {
       };
       return {
         ...state,
-        expenses: state.expenses.concat(newExpense),
+        expenses: [newExpense, ...state.expenses],
       };
     }
+
+    case "SET_EXPENSES": {
+      return action.payload;
+    }
+
     case "DELETE_EXPENSE": {
-      const expenseToDelete = state.expenses.find(
+      const expenseIndex = state.expenses.findIndex(
         (expense) => expense.id === action.payload.id
       );
-      if (!expenseToDelete) return state; 
+      if (expenseIndex < 0) return state;
 
+      const expenseToDelete = state.expenses[expenseIndex];
       const filteredExpenses = state.expenses.filter(
         (expense) => expense.id !== action.payload.id
       );
@@ -37,15 +43,20 @@ function expensesReducer(state, action) {
         ...state,
         expenses: filteredExpenses,
         lastDeletedExpense: expenseToDelete,
+        lastDeletedIndex: expenseIndex, // Store the index of the deleted expense
       };
     }
     case "UNDO_DELETE": {
-      if (!state.lastDeletedExpense) return state; 
+      if (!state.lastDeletedExpense) return state;
+
+      const expenses = [...state.expenses];
+      expenses.splice(state.lastDeletedIndex, 0, state.lastDeletedExpense);
 
       return {
         ...state,
-        expenses: state.expenses.concat(state.lastDeletedExpense),
+        expenses: expenses,
         lastDeletedExpense: null,
+        lastDeletedExpenseIndex: null,
       };
     }
     case "UPDATE_EXPENSE": {
@@ -53,7 +64,7 @@ function expensesReducer(state, action) {
         (expense) => expense.id === action.payload.id
       );
       if (expenseIndex < 0) return state; // Expense not found
-      
+
       const updatedExpenses = [...state.expenses];
       updatedExpenses[expenseIndex] = {
         ...updatedExpenses[expenseIndex],
@@ -88,6 +99,15 @@ function ExpensesContextProvider({ children }) {
     });
   }
 
+  function setExpenses(expenses) {
+    dispatch({
+      type: "SET_EXPENSES",
+      payload: {
+        expenses,
+      },
+    });
+  }
+
   function deleteExpenseHandler(id) {
     dispatch({
       type: "DELETE_EXPENSE",
@@ -116,10 +136,12 @@ function ExpensesContextProvider({ children }) {
 
   const value = {
     expenses: expenseState.expenses,
+    setExpenses: setExpenses,
     addExpense: addExpenseHandler,
     deleteExpense: deleteExpenseHandler,
     updateExpense: updateExpenseHandler,
     undoDelete: undoDeleteHandler,
+    lastDeletedExpense: expenseState.lastDeletedExpense,
   };
 
   return (

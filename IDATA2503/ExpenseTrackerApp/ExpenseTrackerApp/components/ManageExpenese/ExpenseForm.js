@@ -5,6 +5,7 @@ import CustomTextInput from "./CustomTextInput";
 
 import PickerComponent from "../PickerComponent";
 import ExpenseItem from "../ExpenseItem";
+import { storeExpense } from "../../util/http";
 
 function ExpanseForm({ onAddExpense, navigation }) {
   const [enteredExpenseText, setEnteredExpenseText] = useState("");
@@ -23,7 +24,7 @@ function ExpanseForm({ onAddExpense, navigation }) {
     toggleDatePicker();
   };
 
-  function saveExpenseHandler() {
+  async function saveExpenseHandler() {
     const newExpense = {
       text: enteredExpenseText,
       amount: enteredExpenseAmount,
@@ -38,8 +39,8 @@ function ExpanseForm({ onAddExpense, navigation }) {
       Alert.alert("Invalid input", "Please check your input values");
       return;
     }
-
-    onAddExpense(newExpense);
+    const id = await storeExpense(newExpense);
+    onAddExpense({...newExpense, id: id});
   }
 
   return (

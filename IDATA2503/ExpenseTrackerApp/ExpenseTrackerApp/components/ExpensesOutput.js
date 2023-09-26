@@ -4,12 +4,31 @@ import { StyleSheet, View, Button, Animated } from "react-native";
 import ExpensesChart from "./ExpensesChart";
 import ExpensesList from "./ExpensesList";
 import { ExpensesContext } from "../store/expenses-context";
+import { deleteExpense, fetchExpenses, undoDeleteExpense } from "../util/http";
 
 function ExpensesOutput({ expenses }) {
   const expensesContext = useContext(ExpensesContext);
   const [hasDeleted, setHasDeleted] = useState(false);
   const animateButton = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
+  const [countdown, setCountdown] = useState(5);
 
+  // fetch expenses from server
+  useEffect(() => {
+    async function getExpenses() {
+      const expenses = await fetchExpenses();
+      expenses.reverse();
+      expensesContext.setExpenses(expenses);
+    }
+    getExpenses();
+  }, []);
+
+  useEffect(() => {
+    if (countdown > 0) {
+      setTimeout(() => setCountdown(countdown - 1), 1000);
+    }
+  }, [countdown]);
+
+  //todo: fix animation
   useEffect(() => {
     if (hasDeleted) {
       Animated.sequence([
@@ -28,15 +47,22 @@ function ExpensesOutput({ expenses }) {
     }
   }, [hasDeleted]);
 
-  const undoDeleteHandler = () => {
-    expensesContext.undoDelete();
-    animateButton.setValue(0); // reset the animation
+  const undoDeleteHandler = (id) => {
+    const lastDeletedExpense = expensesContext.lastDeletedExpense; // get last deleted expense
+
+    undoDeleteExpense(lastDeletedExpense); // add back to server
+    expensesContext.undoDelete(id); // add back to context
+
+    // trying to reset the animation (doesnt work)
+    animateButton.stopAnimation();
+    animateButton.resetAnimation();
+    animateButton.setValue(0);
     setHasDeleted(false);
   };
 
   const onExpenseDelete = (id) => {
-    console.log("delete expense with id: ", id);
-    expensesContext.deleteExpense(id);
+    expensesContext.deleteExpense(id); //delete from context
+    deleteExpense(id); //delete from server
     setHasDeleted(true);
   };
 
@@ -57,7 +83,10 @@ function ExpensesOutput({ expenses }) {
           }),
         }}
       >
-        <Button title="Undo Delete" onPress={undoDeleteHandler} />
+        <Button
+          title={`Undo Delete ${countdown}`}
+          onPress={undoDeleteHandler}
+        />
       </Animated.View>
     </View>
   );
