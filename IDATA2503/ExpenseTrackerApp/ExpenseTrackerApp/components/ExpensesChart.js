@@ -5,32 +5,42 @@ import { GlobalStyles } from "../constants/styles";
 
 function ExpensesChart({ expenses }) {
   const [availableWidth, setAvailableWidth] = useState(0);
-  const tagCount = {
+
+  const tagAmount = {
     food: 0,
     travel: 0,
     leisure: 0,
     work: 0,
   };
 
+  // Loop over the expenses and sum up the amounts for each tag
   expenses.forEach((expense) => {
-    if (tagCount[expense.tag] !== undefined) {
-      tagCount[expense.tag] += 1;
+    if (tagAmount[expense.tag] !== undefined) {
+      tagAmount[expense.tag] += parseFloat(expense.amount); // Parsing expense.amount as a float before addition
     }
   });
 
   const chartData = [
-    { value: tagCount.food, label: "Food", labelTextStyle: { color: "white" } },
     {
-      value: tagCount.travel,
+      value: tagAmount.food,
+      label: "Food",
+      labelTextStyle: { color: "white" },
+    },
+    {
+      value: tagAmount.travel,
       label: "Travel",
       labelTextStyle: { color: "white" },
     },
     {
-      value: tagCount.leisure,
+      value: tagAmount.leisure,
       label: "Leisure",
       labelTextStyle: { color: "white" },
     },
-    { value: tagCount.work, label: "Work", labelTextStyle: { color: "white" } },
+    {
+      value: tagAmount.work,
+      label: "Work",
+      labelTextStyle: { color: "white" },
+    },
   ];
 
   const numberOfBars = chartData.length;
@@ -38,6 +48,7 @@ function ExpensesChart({ expenses }) {
   const barWidth = Math.floor(
     (availableWidth - gapBetweenBars * (numberOfBars - 1)) / numberOfBars
   );
+
   return (
     <View
       style={{
@@ -54,22 +65,19 @@ function ExpensesChart({ expenses }) {
         data={chartData}
         frontColor={GlobalStyles.colors.secondary700}
         hideRules={true}
-        maxValue={Math.max(...Object.values(tagCount)) + 1}
         barWidth={barWidth}
         hideAxesAndRules={true}
         renderTooltip={(item, index) => {
           return (
             <View
               style={{
-                marginBottom: 20,
-                marginLeft: -6,
-                backgroundColor: GlobalStyles.colors.secondary700,
-                paddingHorizontal: 6,
-                paddingVertical: 4,
-                borderRadius: 4,
+                position: "absolute",
+                padding: 5,
+                backgroundColor: GlobalStyles.colors.primary500,
+                borderRadius: 5,
               }}
             >
-              <Text style={{ color: "white" }}>{item.value}</Text>
+              <Text style={{ color: "white" }}>{`$${item.value}`}</Text>
             </View>
           );
         }}
