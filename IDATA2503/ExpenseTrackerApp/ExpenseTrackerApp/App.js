@@ -1,11 +1,16 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { TransitionSpecs, createStackNavigator, CardStyleInterpolators } from "@react-navigation/stack";
+import {
+  TransitionSpecs,
+  createStackNavigator,
+  CardStyleInterpolators,
+} from "@react-navigation/stack";
 import React from "react";
 import { Button, View } from "react-native";
 import { GlobalStyles } from "./constants/styles";
 import AddExpenseScreen from "./screens/AddExpenseScreen";
 import ExpenseTracker from "./screens/ExpenseTracker";
 import ExpensesContextProvider from "./store/expenses-context";
+import { ToastProvider } from "react-native-toast-notifications";
 
 const HeaderRightButton = ({ navigation }) => (
   <View style={{ padding: 5 }}>
@@ -25,33 +30,35 @@ const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <ExpensesContextProvider>
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            cardStyle: { backgroundColor: GlobalStyles.colors.primary950 },
-            headerStyle: {
-              backgroundColor: GlobalStyles.colors.secondary600,
-            },
-            headerTitleStyle: {
-              fontWeight: "bold",
-              fontSize: 24,
-              color: "white",
-            },
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-          }}
-        >
-          <Stack.Screen
-            name="ExpenseTracker"
-            component={ExpenseTracker}
-            options={({ navigation }) => ({
-              headerRight: headerRight(navigation),
-              animation: "slide_from_right",
-            })}
-          />
-          <Stack.Screen name="AddExpense" component={AddExpenseScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </ExpensesContextProvider>
+    <ToastProvider>
+      <ExpensesContextProvider>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              cardStyle: { backgroundColor: GlobalStyles.colors.primary950 },
+              headerStyle: {
+                backgroundColor: GlobalStyles.colors.secondary600,
+              },
+              headerTitleStyle: {
+                fontWeight: "bold",
+                fontSize: 24,
+                color: "white",
+              },
+              cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            }}
+          >
+            <Stack.Screen
+              name="ExpenseTracker"
+              component={ExpenseTracker}
+              options={({ navigation }) => ({
+                headerRight: headerRight(navigation),
+                animation: "slide_from_right",
+              })}
+            />
+            <Stack.Screen name="AddExpense" component={AddExpenseScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </ExpensesContextProvider>
+    </ToastProvider>
   );
 }

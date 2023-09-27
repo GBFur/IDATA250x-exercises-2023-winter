@@ -2,73 +2,65 @@ import { createContext, useReducer } from "react";
 
 export const ExpensesContext = createContext({
   expenses: [],
-  addExpense: ({ text, amount, date, tag }) => {},
-  setExpenses: (expenses) => {},
-  deleteExpense: (id) => {},
-  updateExpense: (id, { text, amount, date, tag }) => {},
+  addExpense: () => {},
+  setExpenses: () => {},
+  deleteExpense: () => {},
+  updateExpense: () => {},
   undoDelete: () => {},
+  lastDeletedExpense: null,
 });
 
 function expensesReducer(state, action) {
   switch (action.type) {
-    case "ADD_EXPENSE": {
-      const newExpense = {
-        id: action.payload.id,
-        text: action.payload.text,
-        amount: action.payload.amount,
-        date: action.payload.date,
-        tag: action.payload.tag,
-      };
+    case "ADD_EXPENSE":
       return {
         ...state,
-        expenses: [newExpense, ...state.expenses],
+        expenses: [{ ...action.payload }, ...state.expenses],
       };
-    }
 
-    case "SET_EXPENSES": {
-      return action.payload;
-    }
+    case "SET_EXPENSES":
+      return { ...state, expenses: action.payload.expenses };
 
     case "DELETE_EXPENSE": {
+      const { id } = action.payload;
       const expenseIndex = state.expenses.findIndex(
-        (expense) => expense.id === action.payload.id
+        (expense) => expense.id === id
       );
       if (expenseIndex < 0) return state;
 
-      const expenseToDelete = state.expenses[expenseIndex];
       const filteredExpenses = state.expenses.filter(
-        (expense) => expense.id !== action.payload.id
+        (expense) => expense.id !== id
       );
       return {
         ...state,
         expenses: filteredExpenses,
-        lastDeletedExpense: expenseToDelete,
-        lastDeletedIndex: expenseIndex, // Store the index of the deleted expense
+        lastDeletedExpense: state.expenses[expenseIndex],
+        lastDeletedIndex: expenseIndex,
       };
     }
-    case "UNDO_DELETE": {
+    case "UNDO_DELETE":
       if (!state.lastDeletedExpense) return state;
 
       const expenses = [...state.expenses];
       expenses.splice(state.lastDeletedIndex, 0, state.lastDeletedExpense);
-
       return {
         ...state,
-        expenses: expenses,
+        expenses,
         lastDeletedExpense: null,
-        lastDeletedExpenseIndex: null,
+        lastDeletedIndex: null,
       };
-    }
+
     case "UPDATE_EXPENSE": {
+      const { id, ...updatedFields } = action.payload;
       const expenseIndex = state.expenses.findIndex(
-        (expense) => expense.id === action.payload.id
+        (expense) => expense.id === id
       );
-      if (expenseIndex < 0) return state; // Expense not found
+      if (expenseIndex < 0) return state;
 
       const updatedExpenses = [...state.expenses];
       updatedExpenses[expenseIndex] = {
         ...updatedExpenses[expenseIndex],
-        ...action.payload,
+        ...updatedFields,
       };
       return {
         ...state,
@@ -81,68 +73,25 @@ function expensesReducer(state, action) {
 }
 
 function ExpensesContextProvider({ children }) {
-  const initialState = {
-    expenses: [],
-    deletedExpenses: null,
-  };
-  const [expenseState, dispatch] = useReducer(expensesReducer, initialState);
+  const [state, dispatch] = useReducer(expensesReducer, { expenses: [] });
 
-  function addExpenseHandler({ id, text, amount, date, tag }) {
-    dispatch({
-      type: "ADD_EXPENSE",
-      payload: {
-        id,
-        text,
-        amount,
-        date,
-        tag,
-      },
-    });
-  }
-
-  function setExpenses(expenses) {
-    dispatch({
-      type: "SET_EXPENSES",
-      payload: {
-        expenses,
-      },
-    });
-  }
-
-  function deleteExpenseHandler(id) {
-    dispatch({
-      type: "DELETE_EXPENSE",
-      payload: {
-        id,
-      },
-    });
-  }
-
-  function undoDeleteHandler() {
-    dispatch({ type: "UNDO_DELETE" });
-  }
-
-  function updateExpenseHandler(id, { text, amount, date, tag }) {
-    dispatch({
-      type: "UPDATE_EXPENSE",
-      payload: {
-        id,
-        text,
-        amount,
-        date,
-        tag,
-      },
-    });
-  }
+  const addExpense = (expense) =>
+    dispatch({ type: "ADD_EXPENSE", payload: expense });
+  const setExpenses = (expenses) =>
+    dispatch({ type: "SET_EXPENSES", payload: { expenses } });
+  const deleteExpense = (id) =>
+    dispatch({ type: "DELETE_EXPENSE", payload: { id } });
+  const undoDelete = () => dispatch({ type: "UNDO_DELETE" });
+  const updateExpense = (id, updatedExpense) =>
+    dispatch({ type: "UPDATE_EXPENSE", payload: { id, ...updatedExpense } });
 
   const value = {
-    expenses: expenseState.expenses,
-    setExpenses: setExpenses,
-    addExpense: addExpenseHandler,
-    deleteExpense: deleteExpenseHandler,
-    updateExpense: updateExpenseHandler,
-    undoDelete: undoDeleteHandler,
-    lastDeletedExpense: expenseState.lastDeletedExpense,
+    ...state,
+    addExpense,
+    setExpenses,
+    deleteExpense,
+    updateExpense,
+    undoDelete,
   };
 
   return (

@@ -5,6 +5,8 @@ import ExpensesChart from "./ExpensesChart";
 import ExpensesList from "./ExpensesList";
 import { ExpensesContext } from "../store/expenses-context";
 import { deleteExpense, fetchExpenses, undoDeleteExpense } from "../util/http";
+import { useToast } from "react-native-toast-notifications";
+import CustomToast from "./Toast/CustomToast";
 
 function ExpensesOutput({ expenses }) {
   const expensesContext = useContext(ExpensesContext);
@@ -12,11 +14,10 @@ function ExpensesOutput({ expenses }) {
   const animateButton = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
   const [countdown, setCountdown] = useState(5);
 
-
   //TODO:
   //https://www.npmjs.com/package/react-native-toast-notifications
 
-  //TODO: 
+  //TODO:
   //ID is not updated when undoing delete (there is a new ID)
 
   // fetch expenses from server
@@ -29,42 +30,30 @@ function ExpensesOutput({ expenses }) {
     getExpenses();
   }, []);
 
-  useEffect(() => {
-    if (countdown > 0) {
-      setTimeout(() => setCountdown(countdown - 1), 1000);
-    }
-  }, [countdown]);
+  const toast = useToast();
 
-  //todo: fix animation
+  // show toast when expense is deleted
   useEffect(() => {
     if (hasDeleted) {
-      Animated.sequence([
-        Animated.timing(animateButton, {
-          toValue: 1,
-          duration: 600, // 1 second to move to the animated position
-          useNativeDriver: false,
-        }),
-        Animated.delay(5000), // Stay in the animated position for 4 seconds
-        Animated.timing(animateButton, {
-          toValue: 0,
-          duration: 1000, // Immediately move back to the original position
-          useNativeDriver: false,
-        }),
-      ]).start(() => setHasDeleted(false)); // reset hasDeleted after animation sequence
+      toast.show(
+        <CustomToast message={"undo delete"} onPress={undoDeleteHandler} />,
+        {
+          type: "danger",
+          placement: "bottom",
+          duration: 5000,
+        }
+      );
     }
   }, [hasDeleted]);
 
-  const undoDeleteHandler = (id) => {
+  const undoDeleteHandler = () => {
     const lastDeletedExpense = expensesContext.lastDeletedExpense; // get last deleted expense
 
     undoDeleteExpense(lastDeletedExpense); // add back to server
-    expensesContext.undoDelete(id); // add back to context
+    expensesContext.undoDelete(); // add back to context
 
-    // trying to reset the animation (doesnt work)
-    animateButton.stopAnimation();
-    animateButton.resetAnimation();
-    animateButton.setValue(0);
     setHasDeleted(false);
+    toast.hideAll();
   };
 
   const onExpenseDelete = (id) => {
