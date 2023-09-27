@@ -5,7 +5,10 @@ const BACKEND_URL =
 
 //Stores the expense in the backend and returns the id of the stored expense
 export async function storeExpense(expenseData) {
-  const response = await axios.post(BACKEND_URL + "/expenses.json", expenseData);
+  const response = await axios.post(
+    BACKEND_URL + "/expenses.json",
+    expenseData
+  );
   const id = response.data.name;
   return id;
 }
@@ -35,7 +38,8 @@ export async function deleteExpense(expenseId) {
   await axios.delete(BACKEND_URL + `/expenses/${expenseId}.json`);
 }
 
-//Adds the expense back with the given id in the backend
+//Undoes the deletion of the given expense in the backend
 export async function undoDeleteExpense(expense) {
-  await axios.post(BACKEND_URL + "/expenses.json", expense);
+  const { id, ...data } = expense;
+  await axios.put(`${BACKEND_URL}/expenses/${id}.json`, data);
 }
