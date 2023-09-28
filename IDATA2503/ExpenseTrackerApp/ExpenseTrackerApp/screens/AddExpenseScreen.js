@@ -23,7 +23,6 @@ function AddExpenseScreen({ navigation }) {
         padding: 8,
       }}
     >
-      <StatusBar style="auto" />
       <ExpenseForm onAddExpense={addExpenseHandler} navigation={navigation} />
     </View>
   );

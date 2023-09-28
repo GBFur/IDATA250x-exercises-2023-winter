@@ -11,6 +11,7 @@ import AddExpenseScreen from "./screens/AddExpenseScreen";
 import ExpenseTracker from "./screens/ExpenseTracker";
 import ExpensesContextProvider from "./store/expenses-context";
 import { ToastProvider } from "react-native-toast-notifications";
+import { StatusBar } from "expo-status-bar";
 
 const HeaderRightButton = ({ navigation }) => (
   <View style={{ padding: 5 }}>
@@ -32,6 +33,7 @@ export default function App() {
   return (
     <ToastProvider>
       <ExpensesContextProvider>
+        <StatusBar style="light" />
         <NavigationContainer>
           <Stack.Navigator
             screenOptions={{
