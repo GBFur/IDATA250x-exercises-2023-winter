@@ -5,7 +5,6 @@ export const ExpensesContext = createContext({
   addExpense: () => {},
   setExpenses: () => {},
   deleteExpense: () => {},
-  updateExpense: () => {},
   undoDelete: () => {},
   lastDeletedExpense: null,
 });
@@ -49,24 +48,6 @@ function expensesReducer(state, action) {
         lastDeletedExpense: null,
         lastDeletedIndex: null,
       };
-
-    case "UPDATE_EXPENSE": {
-      const { id, ...updatedFields } = action.payload;
-      const expenseIndex = state.expenses.findIndex(
-        (expense) => expense.id === id
-      );
-      if (expenseIndex < 0) return state;
-
-      const updatedExpenses = [...state.expenses];
-      updatedExpenses[expenseIndex] = {
-        ...updatedExpenses[expenseIndex],
-        ...updatedFields,
-      };
-      return {
-        ...state,
-        expenses: updatedExpenses,
-      };
-    }
     default:
       return state;
   }
@@ -82,15 +63,12 @@ function ExpensesContextProvider({ children }) {
   const deleteExpense = (id) =>
     dispatch({ type: "DELETE_EXPENSE", payload: { id } });
   const undoDelete = () => dispatch({ type: "UNDO_DELETE" });
-  const updateExpense = (id, updatedExpense) =>
-    dispatch({ type: "UPDATE_EXPENSE", payload: { id, ...updatedExpense } });
 
   const value = {
     ...state,
     addExpense,
     setExpenses,
     deleteExpense,
-    updateExpense,
     undoDelete,
   };
 
