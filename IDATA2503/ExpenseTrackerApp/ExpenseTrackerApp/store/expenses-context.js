@@ -1,5 +1,8 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useMemo } from "react";
 
+/**
+ * Context for storing expenses and functions for adding, deleting and undoing deletions.
+ */
 export const ExpensesContext = createContext({
   expenses: [],
   addExpense: () => {},
@@ -9,6 +12,9 @@ export const ExpensesContext = createContext({
   lastDeletedExpense: null,
 });
 
+/**
+ * Reducer for expenses context. Handles adding, deleting and undoing deletions.
+ */
 function expensesReducer(state, action) {
   switch (action.type) {
     case "ADD_EXPENSE":
@@ -53,6 +59,10 @@ function expensesReducer(state, action) {
   }
 }
 
+/**
+ * Context provider for expenses context. Provides expenses and functions for adding, deleting and undoing deletions.
+ */
+
 function ExpensesContextProvider({ children }) {
   const [state, dispatch] = useReducer(expensesReducer, { expenses: [] });
 
@@ -64,13 +74,16 @@ function ExpensesContextProvider({ children }) {
     dispatch({ type: "DELETE_EXPENSE", payload: { id } });
   const undoDelete = () => dispatch({ type: "UNDO_DELETE" });
 
-  const value = {
-    ...state,
-    addExpense,
-    setExpenses,
-    deleteExpense,
-    undoDelete,
-  };
+  //value for context provider 
+  const value = useMemo(() => {
+    return {
+      ...state,
+      addExpense,
+      setExpenses,
+      deleteExpense,
+      undoDelete,
+    };
+  }, [state, addExpense, setExpenses, deleteExpense, undoDelete]);
 
   return (
     <ExpensesContext.Provider value={value}>
