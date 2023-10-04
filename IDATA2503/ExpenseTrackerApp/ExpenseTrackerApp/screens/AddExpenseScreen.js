@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { StatusBar, View } from "react-native";
-import ExpenseForm from "../components/ManageExpenese/ExpenseForm";
-import { ExpensesContext } from "../store/expenses-context"; // Please replace with your actual path
+import ExpenseForm from "../components/AddExpense/ExpenseForm";
+import { ExpensesContext } from "../store/expenses-context";
 
 function AddExpenseScreen({ navigation }) {
   const { addExpense } = useContext(ExpensesContext);

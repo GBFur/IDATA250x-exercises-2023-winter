@@ -1,11 +1,9 @@
-import React, { useState } from "react";
-import { Button, View, TextInput, StyleSheet, Alert, Text } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import React, { useState } from "react";
+import { Alert, Button, StyleSheet, Text, TextInput, View } from "react-native";
 import CustomTextInput from "./CustomTextInput";
-
-import PickerComponent from "../PickerComponent";
-import ExpenseItem from "../ExpenseItem";
 import { storeExpense } from "../../util/http";
+import PickerComponent from "./PickerComponent";
 
 function ExpanseForm({ onAddExpense, navigation }) {
   const [enteredExpenseText, setEnteredExpenseText] = useState("");
@@ -40,7 +38,7 @@ function ExpanseForm({ onAddExpense, navigation }) {
       return;
     }
     const id = await storeExpense(newExpense);
-    onAddExpense({...newExpense, id: id});
+    onAddExpense({ ...newExpense, id: id });
   }
 
   return (

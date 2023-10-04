@@ -1,7 +1,7 @@
 // src/screens/HomeScreen.js
 import React, { useContext } from "react";
 import { View } from "react-native";
-import ExpensesOutput from "../components/ExpensesOutput";
+import ExpensesOutput from "../components/HandleExpense/ExpensesOutput";
 import { ExpensesContext } from "../store/expenses-context";
 
 function ExpenseTracker() {

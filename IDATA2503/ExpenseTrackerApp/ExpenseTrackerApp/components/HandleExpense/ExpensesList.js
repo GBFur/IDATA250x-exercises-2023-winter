@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { FlatList, View } from "react-native";
-import ExpenseItem from "./ExpenseItem";
 import { Swipeable } from "react-native-gesture-handler";
 import { TrashIcon } from "react-native-heroicons/outline";
-import { ExpensesContext } from "../store/expenses-context";
+import ExpenseItem from "./ExpenseItem";
 
 function ExpensesList({ expenses, onExpenseDelete }) {
 

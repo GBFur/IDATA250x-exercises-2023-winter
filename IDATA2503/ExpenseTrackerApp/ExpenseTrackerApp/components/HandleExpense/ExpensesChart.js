@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { BarChart } from "react-native-gifted-charts";
-import { GlobalStyles } from "../constants/styles";
+import { GlobalStyles } from "../../constants/styles";
 
 function ExpensesChart({ expenses }) {
   const [availableWidth, setAvailableWidth] = useState(0);
