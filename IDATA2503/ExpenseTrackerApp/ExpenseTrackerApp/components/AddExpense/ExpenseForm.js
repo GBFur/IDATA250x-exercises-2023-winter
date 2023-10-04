@@ -5,6 +5,10 @@ import CustomTextInput from "./CustomTextInput";
 import { storeExpense } from "../../util/http";
 import PickerComponent from "./PickerComponent";
 
+/**
+ * ExpanseForm is a form component for adding expenses.
+ * Gets user input for expense text, amount, tag, and date.
+ */
 function ExpanseForm({ onAddExpense, navigation }) {
   const [enteredExpenseText, setEnteredExpenseText] = useState("");
   const [enteredExpenseAmount, setEnteredExpenseAmount] = useState("");
@@ -92,7 +96,7 @@ function ExpanseForm({ onAddExpense, navigation }) {
               title="Cancel"
               style={styles.button}
               onPress={() => {
-                navigation.navigate("ExpenseTracker");
+                navigation.navigate("ExpenseScreen");
               }}
             />
           </View>

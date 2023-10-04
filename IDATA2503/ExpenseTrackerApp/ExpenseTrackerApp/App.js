@@ -1,17 +1,16 @@
 import { NavigationContainer } from "@react-navigation/native";
 import {
-  TransitionSpecs,
-  createStackNavigator,
   CardStyleInterpolators,
+  createStackNavigator
 } from "@react-navigation/stack";
+import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { Button, View } from "react-native";
+import { ToastProvider } from "react-native-toast-notifications";
 import { GlobalStyles } from "./constants/styles";
 import AddExpenseScreen from "./screens/AddExpenseScreen";
-import ExpenseTracker from "./screens/ExpenseTracker";
+import ExpenseScreen from "./screens/ExpenseScreen";
 import ExpensesContextProvider from "./store/expenses-context";
-import { ToastProvider } from "react-native-toast-notifications";
-import { StatusBar } from "expo-status-bar";
 
 const HeaderRightButton = ({ navigation }) => (
   <View style={{ padding: 5 }}>
@@ -50,8 +49,8 @@ export default function App() {
             }}
           >
             <Stack.Screen
-              name="ExpenseTracker"
-              component={ExpenseTracker}
+              name="ExpenseScreen"
+              component={ExpenseScreen}
               options={({ navigation }) => ({
                 headerRight: headerRight(navigation),
                 animation: "slide_from_right",

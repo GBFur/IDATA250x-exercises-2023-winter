@@ -1,6 +1,9 @@
-import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
+/**
+ * Custom toast component for displaying a message
+ */
 const CustomToast = ({ message, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress}>
@@ -11,7 +14,7 @@ const CustomToast = ({ message, onPress }) => {
 
 const styles = StyleSheet.create({
   text: {
-    color: 'white',
+    color: "white",
   },
 });
 

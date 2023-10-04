@@ -2,11 +2,18 @@ import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { useToast } from "react-native-toast-notifications";
 import { ExpensesContext } from "../../store/expenses-context";
-import { deleteExpense, fetchExpenses, undoDeleteExpense } from "../../util/http";
+import {
+  deleteExpense,
+  fetchExpenses,
+  undoDeleteExpense,
+} from "../../util/http";
+import CustomToast from "../Toast/CustomToast";
 import ExpensesChart from "./ExpensesChart";
 import ExpensesList from "./ExpensesList";
-import CustomToast from "../Toast/CustomToast";
 
+/**
+ * Handles the output of the expenses list and chart
+ */
 function ExpensesOutput({ expenses }) {
   const expensesContext = useContext(ExpensesContext);
   const [hasDeleted, setHasDeleted] = useState(false);

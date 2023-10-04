@@ -1,8 +1,12 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { BarChart } from "react-native-gifted-charts";
 import { GlobalStyles } from "../../constants/styles";
 
+/**
+ * Bar chart component for displaying expenses by tag in a bar chart
+ * Click on a bar to see the total amount for the tag
+ */
 function ExpensesChart({ expenses }) {
   const [availableWidth, setAvailableWidth] = useState(0);
 
@@ -13,10 +17,10 @@ function ExpensesChart({ expenses }) {
     work: 0,
   };
 
-  // Loop over the expenses and sum up the amounts for each tag
+  // Calculate total amount for each tag
   expenses.forEach((expense) => {
     if (tagAmount[expense.tag] !== undefined) {
-      tagAmount[expense.tag] += parseFloat(expense.amount); // Parsing expense.amount as a float before addition
+      tagAmount[expense.tag] += parseFloat(expense.amount); // Parse to float to avoid string concatenation
     }
   });
 
@@ -44,7 +48,7 @@ function ExpensesChart({ expenses }) {
   ];
 
   const numberOfBars = chartData.length;
-  const gapBetweenBars = 50; //constant value
+  const gapBetweenBars = 50;
   const barWidth = Math.floor(
     (availableWidth - gapBetweenBars * (numberOfBars - 1)) / numberOfBars
   );
@@ -67,7 +71,7 @@ function ExpensesChart({ expenses }) {
         hideRules={true}
         barWidth={barWidth}
         hideAxesAndRules={true}
-        renderTooltip={(item, index) => {
+        renderTooltip={(item) => {
           return (
             <View
               style={{

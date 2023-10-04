@@ -1,6 +1,9 @@
 import React from "react";
-import { StyleSheet, TextInput, Text } from "react-native";
+import { StyleSheet, TextInput } from "react-native";
 
+/**
+ Reusable text input component
+ */
 function CustomTextInput(props) {
   return (
     <TextInput

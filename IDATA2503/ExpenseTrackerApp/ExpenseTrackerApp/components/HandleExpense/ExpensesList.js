@@ -4,14 +4,16 @@ import { Swipeable } from "react-native-gesture-handler";
 import { TrashIcon } from "react-native-heroicons/outline";
 import ExpenseItem from "./ExpenseItem";
 
+/**
+ * Renders a list that uses the ExpenseItem component to render each item
+ */
 function ExpensesList({ expenses, onExpenseDelete }) {
-
   const renderRightActions = () => {
     return (
       <View
         style={{
           backgroundColor: "red",
-          width: "100%", // or any width you want to show when user swipes
+          width: "100%",
           alignItems: "center",
           justifyContent: "center",
           padding: 20,
