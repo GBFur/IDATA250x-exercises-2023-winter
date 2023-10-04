@@ -6,7 +6,7 @@ The project employs **React Navigation** for navigation between different screen
 
 ### Screens
 
-- **AddExpenseScreen**: Here, users can add expenses.
+- **AddExpenseScreen**: The screen where the user can add an expense from the form.
 - **ExpenseScreen**: This serves as the application's landing page where users can view the `ExpensesList` and `ExpensesChart`.
 
 ### Components
