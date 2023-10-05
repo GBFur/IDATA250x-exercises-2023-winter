@@ -54,6 +54,7 @@ export default function App() {
               options={({ navigation }) => ({
                 headerRight: headerRight(navigation),
                 animation: "slide_from_right",
+                title: "Expenses",
               })}
             />
             <Stack.Screen name="AddExpense" component={AddExpenseScreen} />
