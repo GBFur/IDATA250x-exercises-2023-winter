@@ -81,6 +81,13 @@ The project employs **React Navigation** for navigation between different screen
 
 ![architecture](docs/architecture.drawio.svg)
 
+
 ## Additional features
 
 Dummy backend with firebase.
+
+## Screenshots
+
+![ExpensesScreen](docs/screenshots/ExpensesScreen.png)
+
+![AddExpense](docs/screenshots/AddExpense.png)
