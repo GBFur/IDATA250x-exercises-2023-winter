@@ -96,7 +96,7 @@ function ExpanseForm({ onAddExpense, navigation }) {
               title="Cancel"
               style={styles.button}
               onPress={() => {
-                navigation.navigate("ExpenseTracker");
+                navigation.navigate("ExpenseScreen");
               }}
             />
           </View>
