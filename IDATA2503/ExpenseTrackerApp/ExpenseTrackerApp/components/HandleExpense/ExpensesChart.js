@@ -55,11 +55,7 @@ function ExpensesChart({ expenses }) {
 
   return (
     <View
-      style={{
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
+      style={styles.container}
       onLayout={(event) => {
         const layout = event.nativeEvent.layout;
         setAvailableWidth(layout.width);
@@ -73,14 +69,7 @@ function ExpensesChart({ expenses }) {
         hideAxesAndRules={true}
         renderTooltip={(item) => {
           return (
-            <View
-              style={{
-                position: "absolute",
-                padding: 5,
-                backgroundColor: GlobalStyles.colors.primary500,
-                borderRadius: 5,
-              }}
-            >
+            <View style={styles.tooltip}>
               <Text style={{ color: "white" }}>{`$${item.value}`}</Text>
             </View>
           );
@@ -91,8 +80,17 @@ function ExpensesChart({ expenses }) {
 }
 
 const styles = StyleSheet.create({
-  chartContainer: {
-    width: "50%",
+  container: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  tooltip: {
+    position: "absolute",
+    padding: 5,
+    backgroundColor: GlobalStyles.colors.primary500,
+    borderRadius: 5,
   },
 });
 
