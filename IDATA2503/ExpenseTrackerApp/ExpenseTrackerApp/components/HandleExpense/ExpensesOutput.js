@@ -24,8 +24,8 @@ function ExpensesOutput({ expenses }) {
   useEffect(() => {
     async function getExpenses() {
       try {
-        const fetchedExpenses = await fetchExpenses();
-        expensesContext.setExpenses(fetchedExpenses.reverse());
+        const fetchedExpenses = (await fetchExpenses()).reverse();
+        expensesContext.setExpenses(fetchedExpenses);
       } catch (error) {
         console.error("Failed to fetch expenses", error);
       }
