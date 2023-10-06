@@ -28,6 +28,7 @@ public class WeaponDisplay : UIelement
     public void DisplayGunInformation()
     {
         Shooter playerShooter = GameManager.instance.player.GetComponentInChildren<PlayerController>().playerShooter;
+        Debug.Log(playerShooter);
 
         if (ammoText != null && playerShooter.guns[playerShooter.equippedGunIndex].useAmmo)
         {

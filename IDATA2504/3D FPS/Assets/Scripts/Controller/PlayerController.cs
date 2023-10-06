@@ -48,7 +48,6 @@ public class PlayerController : MonoBehaviour
     {
         SetUpCharacterController();
         SetUpInputManager();
-        playerShooter = GetComponent<Shooter>();
     }
 
     private void SetUpCharacterController()

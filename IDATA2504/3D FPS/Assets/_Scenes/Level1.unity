@@ -175,6 +175,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 9027160191231443955, guid: f73d4e430144b3842a8ce910874e153a, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1909,6 +1913,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1619438690}
   m_Mesh: {fileID: -6232612346480334752, guid: 0d6fc38a106f1e84a8dd47910f390a86, type: 3}
+--- !u!1 &1689420963 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9027160191231443955, guid: f73d4e430144b3842a8ce910874e153a, type: 3}
+  m_PrefabInstance: {fileID: 160072294}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1723058063
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2567,13 +2576,14 @@ PrefabInstance:
     - target: {fileID: 6041221617508667831, guid: 17f8411cd6480914ca3b4fff4bdebf40, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1689420963}
     - target: {fileID: 6433493695867334992, guid: 17f8411cd6480914ca3b4fff4bdebf40, type: 3}
       propertyPath: m_Name
       value: LevelManagementAssets
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 9145532125782051990, guid: 17f8411cd6480914ca3b4fff4bdebf40, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17f8411cd6480914ca3b4fff4bdebf40, type: 3}
