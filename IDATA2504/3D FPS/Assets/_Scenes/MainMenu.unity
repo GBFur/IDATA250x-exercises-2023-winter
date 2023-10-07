@@ -1567,7 +1567,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: This game is about everything you can imagine
+  m_Text: Collect the keys for the door and progress to the boss!
 --- !u!222 &1103912477
 CanvasRenderer:
   m_ObjectHideFlags: 0

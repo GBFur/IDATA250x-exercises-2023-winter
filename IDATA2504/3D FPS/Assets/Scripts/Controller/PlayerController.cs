@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
 
     [Tooltip("The speed at which the player rotates")]
-    public float lookSpeed = 5f;
+    public float lookSpeed = 20f;
 
     [Tooltip("The force applied to the player when they jump")]
     public float jumpForce = 5f;

@@ -146,7 +146,7 @@ MonoBehaviour:
   attackBooleanName: attacking
   hitWithLineOfSight:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2304
   stopDistance: 0
   stopBehavior: 0
 --- !u!114 &4292625075940306288
