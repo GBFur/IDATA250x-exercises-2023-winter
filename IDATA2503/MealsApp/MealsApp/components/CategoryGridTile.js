@@ -1,4 +1,4 @@
-import { Box, Divider, Text, Pressable } from "@gluestack-ui/themed";
+import { Box, Pressable, Text } from "@gluestack-ui/themed";
 
 function CategoryGridTile({ title, color, onPress }) {
   return (
@@ -41,6 +41,7 @@ const styles = {
     justifyContent: "center",
   },
   title: {
+    color: "black",
     fontSize: 18,
     fontWeight: "bold",
   },
