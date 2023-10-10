@@ -1,50 +1,49 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Box, Divider, Text, Pressable } from "@gluestack-ui/themed";
 
 function CategoryGridTile({ title, color, onPress }) {
   return (
-    <View style={[styles.gridItem, {backgroundColor: color}]}>
+    <Box style={styles.gridItem}>
       <Pressable
-        style={({ pressed }) => [
-          styles.button,
-          pressed ? styles.buttonPressed : null,
-        ]}
-        onPress={onPress}
-        android_ripple={{ color: "#0000006d" }}
+        style={styles.button}
+        bg={color}
+        onPress={() => {
+          onPress();
+          console.log("pressed");
+        }}
+        sx={{ ":pressed": { opacity: 0.4 } }}
       >
-        <View style={[styles.innerContainer, { backgroundColor: color }]}>
+        <Box style={styles.innerContainer}>
           <Text style={styles.title}>{title}</Text>
-        </View>
+        </Box>
       </Pressable>
-    </View>
+    </Box>
   );
 }
 
-const styles = StyleSheet.create({
+const styles = {
   gridItem: {
-    flex: 1,
-    margin: 15,
     height: 150,
-    borderRadius: 10,
-    elevation: 3,
-    overflow: "hidden",
+    padding: 10,
+    width: "49%", // slightly less than half to account for margins or gaps
+    marginBottom: 4, // for spacing between rows
   },
   button: {
     flex: 1,
-  },
-  buttonPressed: {
-    opacity: 0.5,
+    padding: 10,
+    borderRadius: 8,
+    elevation: 2,
+    justifyContent: "center",
+    alignItems: "center",
   },
   innerContainer: {
     flex: 1,
-    borderRadius: 10,
-    padding: 15,
-    justifyContent: "flex-end",
     alignItems: "center",
+    justifyContent: "center",
   },
   title: {
     fontSize: 18,
     fontWeight: "bold",
   },
-});
+};
 
 export default CategoryGridTile;
