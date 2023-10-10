@@ -10,6 +10,10 @@ function MealsList({ displayedMeals }) {
       duration: itemData.item.duration,
       complexity: itemData.item.complexity,
       affordability: itemData.item.affordability,
+      isGlutenFree: itemData.item.isGlutenFree,
+      isVegan: itemData.item.isVegan,
+      isVegetarian: itemData.item.isVegetarian,
+      isLactoseFree: itemData.item.isLactoseFree
     };
 
     return <MealItem {...mealItemProps} />;
