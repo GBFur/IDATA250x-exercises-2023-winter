@@ -31,10 +31,10 @@ function MealItem({
             <Image style={styles.image} source={{ uri: imageUrl }} />
             {(isGlutenFree || isVegan || isLactoseFree || isVegetarian) && (
               <View style={styles.infoBox}>
+                {isVegan && <Text style={styles.infoText}>Vegan</Text>}
                 {isGlutenFree && (
                   <Text style={styles.infoText}>Gluten-free</Text>
                 )}
-                {isVegan && <Text style={styles.infoText}>Vegan friendly</Text>}
                 {isVegetarian && (
                   <Text style={styles.infoText}>Vegetarian</Text>
                 )}
