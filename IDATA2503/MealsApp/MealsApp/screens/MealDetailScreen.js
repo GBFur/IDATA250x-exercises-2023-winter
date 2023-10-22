@@ -1,20 +1,14 @@
 import { useLayoutEffect } from "react";
-import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View
-} from "react-native";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import IconButton from "../components/IconButton";
 import MealDetails from "../components/MealDetails";
 import { MEALS } from "../data/dummy-data";
-import { useDispatch, useSelector } from "react-redux";
 import { favoriteActions } from "../store/redux/favorites";
 
 function MealDetailScreen({ route, navigation }) {
   // const favoriteMealContext = useContext(FavoritesContext);
-  const favoriteMealIds = useSelector(state => state.favoriteMeals.ids)
+  const favoriteMealIds = useSelector((state) => state.favoriteMeals.ids);
   const dispatch = useDispatch();
 
   const mealId = route.params.mealId;
@@ -91,56 +85,56 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#f9f9f9",
     elevation: 5,
-    marginBottom: 3,
+    marginBottom: 20,
   },
   image: {
     width: "100%",
     height: 200,
+    borderRadius: 10,
+    overflow: "hidden",
   },
   title: {
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: "bold",
+    color: "#333",
+    marginBottom: 10,
   },
   centerContainer: {
     alignItems: "center",
+    padding: 10,
   },
   infoContainer: {
-    backgroundColor: "#ffffffff",
-    alignItems: "center",
-    flexDirection: "column",
-    height: "100%",
-    borderTopWidth: 3,
-    borderColor: "#ffffffff",
+    backgroundColor: "#ffffff",
+    padding: 15,
+    borderRadius: 10,
+    elevation: 5,
   },
   ingridientContainer: {
-    padding: 5,
+    padding: 10,
     flexDirection: "column",
     width: "100%",
-    alignItems: "center",
-    backgroundColor: "#e1e1e136",
     borderRadius: 10,
+    backgroundColor: "#f5f5f5",
+    marginBottom: 15,
   },
   ingridient: {
-    margin: 5,
-    width: "100%",
-    backgroundColor: "#a9a9a936",
-    borderRadius: 10,
-    textAlign: "center",
-  },
-  steps: {
-    margin: 5,
-    width: "100%",
-    backgroundColor: "#a9a9a936",
-    textAlign: "center",
+    fontSize: 16,
+    marginVertical: 5,
+    paddingLeft: 10,
+    color: "#555",
   },
   stepsContainer: {
-    marginTop: 5,
+    padding: 10,
     flexDirection: "column",
     width: "100%",
-    height: "100%",
-    alignItems: "center",
-    backgroundColor: "#e1e1e136",
     borderRadius: 10,
+    backgroundColor: "#f5f5f5",
+  },
+  steps: {
+    fontSize: 16,
+    marginVertical: 5,
+    paddingLeft: 10,
+    color: "#555",
   },
 });
 
