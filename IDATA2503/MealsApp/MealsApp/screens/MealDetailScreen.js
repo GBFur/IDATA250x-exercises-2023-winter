@@ -1,4 +1,5 @@
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import Toast from "react-native-toast-message";
 import { useDispatch, useSelector } from "react-redux";
 import IconButton from "../components/IconButton";
 import MealDetails from "../components/MealComponents/MealDetails";
@@ -18,6 +19,26 @@ function MealDetailScreen({ route, navigation }) {
 
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
+  const showAddFavoriteToast = () => {
+    Toast.show({
+      type: "success",
+      position: "bottom",
+      text1: "Added to favorites",
+      visibilityTime: 5000,
+      autoHide: true,
+    });
+  };
+
+  const showRemoveFavoriteToast = () => {
+    Toast.show({
+      type: "error",
+      position: "bottom",
+      text1: "Removed from favorite",
+      visibilityTime: 5000,
+      autoHide: true,
+    });
+  };
+
   navigation.setOptions({
     headerRight: () => (
       <IconButton
@@ -30,8 +51,10 @@ function MealDetailScreen({ route, navigation }) {
 
   function changeFavoriteStatusHandler() {
     if (mealIsFavorite) {
+      showRemoveFavoriteToast();
       dispatch(favoriteActions.removeFavorite(mealId));
     } else {
+      showAddFavoriteToast();
       dispatch(favoriteActions.addFavorite(mealId));
     }
   }

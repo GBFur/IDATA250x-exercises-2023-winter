@@ -1,21 +1,21 @@
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet } from "react-native";
 import { Provider } from "react-redux";
 
+import { MaterialIcons } from "@expo/vector-icons";
 import { config } from "@gluestack-ui/config";
-import { GluestackUIProvider, Icon } from "@gluestack-ui/themed";
+import { GluestackUIProvider } from "@gluestack-ui/themed";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import Toast from "react-native-toast-message";
 import CategoriesScreen from "./screens/CategoriesScreen";
 import FavoriteScreen from "./screens/FavoriteScreen";
 import MealDetailScreen from "./screens/MealDetailScreen";
 import MealsOverviewScreen from "./screens/MealsOverviewScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import { store } from "./store/redux/store";
-import { MaterialIcons } from "@expo/vector-icons";
-import IconButton from "./components/IconButton";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -96,6 +96,7 @@ export default function App() {
           </NavigationContainer>
         </Provider>
       </GluestackUIProvider>
+      <Toast />
     </>
   );
 }
