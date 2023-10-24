@@ -9,12 +9,12 @@ import { config } from "@gluestack-ui/config";
 import { GluestackUIProvider } from "@gluestack-ui/themed";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Toast from "react-native-toast-message";
-import CategoriesScreen from "./screens/CategoriesScreen";
-import FavoriteScreen from "./screens/FavoriteScreen";
-import MealDetailScreen from "./screens/MealDetailScreen";
-import MealsOverviewScreen from "./screens/MealsOverviewScreen";
-import SettingsScreen from "./screens/SettingsScreen";
-import { store } from "./store/redux/store";
+import CategoriesScreen from "./src/screens/CategoriesScreen";
+import FavoriteScreen from "./src/screens/FavoriteScreen";
+import MealDetailScreen from "./src/screens/MealDetailScreen";
+import MealsOverviewScreen from "./src/screens/MealsOverviewScreen";
+import SettingsScreen from "./src/screens/SettingsScreen";
+import { store } from "./src/store/redux/store";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
