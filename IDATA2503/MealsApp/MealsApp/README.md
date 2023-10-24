@@ -1,4 +1,4 @@
-# Assignment 1 - ExpenseTracker
+# Assignment 2 - MealsApp
 
 ## Project Structure
 
