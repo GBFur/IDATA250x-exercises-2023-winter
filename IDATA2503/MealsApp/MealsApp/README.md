@@ -10,7 +10,7 @@ The project employs **React Navigation** for navigation between different screen
 - **FavoriteScreen**: The screen where the users favorite recepies are shown. `MealsList` is used to list the favorite meals
 - **MealsOverviewScreen**: The screen where the user can view the meals that is respect with the grid and filter settings. `MealsList` is used to list the meals.
 - **MealDetailScreen**: The screen where the user can view the specific meal. Uses the `MealDetails` component to show duration, complexitiy and affordability.
-- **SettingsScreen**: The screen where the user can toggle filters and toggle between darkmode and lightmode for the application.
+- **SettingsScreen**: The screen where the user can toggle filters and toggle between darkmode and lightmode for the application. This screen uses `GlueStackUI` for components. 
 
 ### Components
 
@@ -18,7 +18,7 @@ The project employs **React Navigation** for navigation between different screen
 - **MealItem**: Represents a single meal. This is a card that shows one meal.
 - **MealList**: Component for listing out meals in as a `FlatList`.
 - **IconButton**: Component for a pressable icon.
-- **CategoryGridTile**: Represents a single category. 
+- **CategoryGridTile**: Represents a single category.
 
 ### Redux
 
@@ -85,6 +85,8 @@ The project employs **React Navigation** for navigation between different screen
 ![use-cases](docs/use-cases.drawio.svg)
 
 ## App Architecture
+
+![Architecture](docs/architecture.drawio.svg)
 
 ## Additional features
 
