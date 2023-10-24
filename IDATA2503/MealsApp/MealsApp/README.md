@@ -108,5 +108,6 @@ Filters shown in `MealItem` image.
 ![DetailScreen](docs/assets/detail.png)
 
 ![Toast](docs/assets/toast.png)
+![ToastRemoved](docs/assets/removed.png)
 
 ![Settings](docs/assets/settings.png)
