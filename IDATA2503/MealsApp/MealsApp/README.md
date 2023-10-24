@@ -101,7 +101,7 @@ Filters shown in `MealItem` image.
 
 ## Screenshots
 
-![HomeScreen](docs/assets/home.png) ![RecipiesScreen](docs/assets/recipies.png) ![DetailScreen](docs/assets/detail.png)
+![HomeScreen](docs/assets/home.png) ![Drawer](docs/assets/drawer.png) ![RecipiesScreen](docs/assets/recipies.png) ![DetailScreen](docs/assets/detail.png)
 
 ![Toast](docs/assets/toast.png) ![ToastRemoved](docs/assets/removed.png) 
 
