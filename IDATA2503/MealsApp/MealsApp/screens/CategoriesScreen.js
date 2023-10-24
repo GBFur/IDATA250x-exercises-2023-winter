@@ -1,4 +1,5 @@
-import { FlatList } from "react-native";
+import { FlatList, View } from "react-native";
+import { useSelector } from "react-redux";
 import CategoryGridTile from "../components/Category/CategoryGridTile";
 import { CATEGORIES } from "../data/dummy-data";
 
@@ -19,14 +20,18 @@ function CategoriesScreen({ navigation }) {
     );
   }
 
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
+
   return (
-    <FlatList
-      data={CATEGORIES}
-      key={(item) => item.id}
-      keyExtractor={(item) => item.id}
-      renderItem={renderCategoryItem}
-      numColumns={2}
-    />
+    <View style={{ flex: 1, backgroundColor: isDarkMode ? "#000000" : "#ffffff" }}>
+      <FlatList
+        data={CATEGORIES}
+        key={(item) => item.id}
+        keyExtractor={(item) => item.id}
+        renderItem={renderCategoryItem}
+        numColumns={2}
+      />
+    </View>
   );
 }
 

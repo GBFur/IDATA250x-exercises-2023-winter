@@ -29,6 +29,10 @@ function MealsOverviewScreen({ route, navigation }) {
     });
   }, [categoryId, navigation]);
 
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
+
+  const styles = getStyles(isDarkMode);
+
   if (displayedMeals.length === 0 || !displayedMeals) {
     return (
       <View style={styles.screen}>
@@ -36,21 +40,33 @@ function MealsOverviewScreen({ route, navigation }) {
       </View>
     );
   } else {
-    return <MealsList displayedMeals={displayedMeals} />;
+    return (
+      <View style={styles.main}>
+        <MealsList displayedMeals={displayedMeals} />
+      </View>
+    );
   }
 }
 
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  title: {
-    fontWeight: "bold",
-    fontSize: 18,
-    textAlign: "center",
-  },
-});
+const getStyles = (isDarkMode) =>
+  StyleSheet.create({
+    main: {
+      flex: 1,
+      backgroundColor: isDarkMode ? "#000000" : "#ffffff",
+    },
+    screen: {
+      flex: 1,
+      backgroundColor: isDarkMode ? "#000000" : "#ffffff",
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: isDarkMode ? "#000000" : "#ffffff",
+    },
+    title: {
+      color: isDarkMode ? "#ffffff" : "#000000",
+      fontWeight: "bold",
+      fontSize: 18,
+      textAlign: "center",
+    },
+  });
 
 export default MealsOverviewScreen;

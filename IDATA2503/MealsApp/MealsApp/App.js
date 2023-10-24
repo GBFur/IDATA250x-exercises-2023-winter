@@ -3,8 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet } from "react-native";
-import { Provider } from "react-redux";
-
+import { Provider, useSelector } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
 import { config } from "@gluestack-ui/config";
 import { GluestackUIProvider } from "@gluestack-ui/themed";
@@ -30,8 +29,13 @@ const FavoritesIcon = ({ color, size }) => (
 );
 
 function BottomTabs() {
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarStyle: { backgroundColor: isDarkMode ? "#000000" : "#FFFFFF" },
+      }}
+    >
       <Tab.Screen
         name="Categories"
         options={{
@@ -53,8 +57,16 @@ function BottomTabs() {
 }
 
 function DrawerNavigator() {
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
   return (
-    <Drawer.Navigator>
+    <Drawer.Navigator
+      screenOptions={{
+        drawerStyle: { backgroundColor: isDarkMode ? "#000000" : "#FFFFFF" },
+        drawerInactiveTintColor: isDarkMode ? "#fff" : "#000",
+        headerStyle: { backgroundColor: isDarkMode ? "#000000" : "#FFFFFF" },
+        headerTintColor: isDarkMode ? "#fff" : "#000",
+      }}
+    >
       <Drawer.Screen
         name="Home"
         component={BottomTabs}
@@ -71,6 +83,34 @@ function DrawerNavigator() {
   );
 }
 
+function AppNavigator() {
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: isDarkMode ? "#000000" : "#FFFFFF",
+        },
+        headerTintColor: isDarkMode ? "#ffffff" : "#000000",
+        headerTitleStyle: {
+          fontWeight: "bold",
+        },
+      }}
+    >
+      <Stack.Screen
+        name="Drawer"
+        component={DrawerNavigator}
+        options={{
+          title: "All Categories",
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen name="MealsOverview" component={MealsOverviewScreen} />
+      <Stack.Screen name="MealDetail" component={MealDetailScreen} />
+    </Stack.Navigator>
+  );
+}
+
 export default function App() {
   return (
     <>
@@ -78,21 +118,7 @@ export default function App() {
       <GluestackUIProvider config={config}>
         <Provider store={store}>
           <NavigationContainer>
-            <Stack.Navigator>
-              <Stack.Screen
-                name="Drawer"
-                component={DrawerNavigator}
-                options={{
-                  title: "All Categories",
-                  headerShown: false,
-                }}
-              />
-              <Stack.Screen
-                name="MealsOverview"
-                component={MealsOverviewScreen}
-              />
-              <Stack.Screen name="MealDetail" component={MealDetailScreen} />
-            </Stack.Navigator>
+            <AppNavigator />
           </NavigationContainer>
         </Provider>
       </GluestackUIProvider>
@@ -104,7 +130,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#ffffff",
     alignItems: "center",
     justifyContent: "center",
   },

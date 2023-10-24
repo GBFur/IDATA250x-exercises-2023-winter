@@ -1,5 +1,6 @@
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import Toast from "react-native-toast-message";
+import React, { useLayoutEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import IconButton from "../components/IconButton";
 import MealDetails from "../components/MealComponents/MealDetails";
@@ -14,10 +15,10 @@ function MealDetailScreen({ route, navigation }) {
   const dispatch = useDispatch();
 
   const mealId = route.params.mealId;
-
   const mealIsFavorite = favoriteMealIds.includes(mealId);
-
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
+  const styles = getStyles(isDarkMode);
 
   const showAddFavoriteToast = () => {
     Toast.show({
@@ -39,15 +40,17 @@ function MealDetailScreen({ route, navigation }) {
     });
   };
 
-  navigation.setOptions({
-    headerRight: () => (
-      <IconButton
-        onPress={changeFavoriteStatusHandler}
-        color="#1477d4"
-        icon={mealIsFavorite ? "favorite" : "favorite-outline"}
-      />
-    ),
-  });
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <IconButton
+          onPress={changeFavoriteStatusHandler}
+          color="#1477d4"
+          icon={mealIsFavorite ? "favorite" : "favorite-outline"}
+        />
+      ),
+    });
+  }, [mealIsFavorite, navigation]);
 
   function changeFavoriteStatusHandler() {
     if (mealIsFavorite) {
@@ -60,11 +63,11 @@ function MealDetailScreen({ route, navigation }) {
   }
 
   return (
-    <ScrollView style={{ backgroundColor: "white" }}>
+    <ScrollView style={styles.wrap}>
       <View style={styles.container}>
         <View style={styles.centerContainer}>
           <Image style={styles.image} source={{ uri: selectedMeal.imageUrl }} />
-          <Text>{selectedMeal.title}</Text>
+          <Text style={styles.title}>{selectedMeal.title}</Text>
         </View>
 
         <MealDetails
@@ -99,61 +102,66 @@ function MealDetailScreen({ route, navigation }) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#f9f9f9",
-    elevation: 5,
-    marginBottom: 20,
-  },
-  image: {
-    width: "100%",
-    height: 200,
-    borderRadius: 10,
-    overflow: "hidden",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#333",
-    marginBottom: 10,
-  },
-  centerContainer: {
-    alignItems: "center",
-    padding: 10,
-  },
-  infoContainer: {
-    backgroundColor: "#ffffff",
-    padding: 15,
-    borderRadius: 10,
-    elevation: 5,
-  },
-  ingridientContainer: {
-    padding: 10,
-    flexDirection: "column",
-    width: "100%",
-    borderRadius: 10,
-    backgroundColor: "#f5f5f5",
-    marginBottom: 15,
-  },
-  ingridient: {
-    fontSize: 16,
-    marginVertical: 5,
-    paddingLeft: 10,
-    color: "#555",
-  },
-  stepsContainer: {
-    padding: 10,
-    flexDirection: "column",
-    width: "100%",
-    borderRadius: 10,
-    backgroundColor: "#f5f5f5",
-  },
-  steps: {
-    fontSize: 16,
-    marginVertical: 5,
-    paddingLeft: 10,
-    color: "#555",
-  },
-});
+const getStyles = (isDarkMode) =>
+  StyleSheet.create({
+    wrap: {
+      flex: 1,
+      backgroundColor: isDarkMode ? "#000000" : "#ffffff",
+    },
+    container: {
+      backgroundColor: isDarkMode ? "#000000" : "#ffffff",
+      elevation: 5,
+      marginBottom: 20,
+    },
+    image: {
+      width: "100%",
+      height: 200,
+      borderRadius: 10,
+      overflow: "hidden",
+    },
+    title: {
+      fontSize: 24,
+      fontWeight: "bold",
+      color: isDarkMode ? "#ffffff" : "#000000",
+      marginBottom: 10,
+    },
+    centerContainer: {
+      alignItems: "center",
+      padding: 10,
+    },
+    infoContainer: {
+      backgroundColor: isDarkMode ? "#000000" : "#ffffff",
+      padding: 15,
+      borderRadius: 10,
+      elevation: 5,
+    },
+    ingridientContainer: {
+      padding: 10,
+      flexDirection: "column",
+      width: "100%",
+      borderRadius: 10,
+      backgroundColor: isDarkMode ? "#020202" : "#fafafa",
+      marginBottom: 15,
+    },
+    ingridient: {
+      fontSize: 16,
+      marginVertical: 5,
+      paddingLeft: 10,
+      color: isDarkMode ? "#ffffff" : "#000000",
+    },
+    stepsContainer: {
+      padding: 10,
+      flexDirection: "column",
+      width: "100%",
+      borderRadius: 10,
+      backgroundColor: isDarkMode ? "#020202" : "#fafafa",
+    },
+    steps: {
+      fontSize: 16,
+      marginVertical: 5,
+      paddingLeft: 10,
+      color: isDarkMode ? "#ffffff" : "#000000",
+    },
+  });
 
 export default MealDetailScreen;

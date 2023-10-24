@@ -1,6 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import MealDetails from "./MealDetails";
+import { useSelector } from "react-redux";
 
 function MealItem({
   id,
@@ -19,6 +20,9 @@ function MealItem({
   function selectMealItemHandler() {
     navigation.navigate("MealDetail", { mealId: id });
   }
+
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
+  const styles = getStyles(isDarkMode);
 
   return (
     <View style={styles.mealItem}>
@@ -56,43 +60,45 @@ function MealItem({
   );
 }
 
-const styles = StyleSheet.create({
-  mealItem: {
-    padding: 10,
-    backgroundColor: "white",
-    overflow: "hidden",
-  },
-  container: {
-    backgroundColor: "#f9f9f9",
-    borderRadius: 10,
-    elevation: 3,
-  },
-  image: {
-    borderRadius: 10,
-    width: "100%",
-    height: 200,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  imageContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  infoBox: {
-    position: "absolute",
-    bottom: 40,
-    left: 10,
-    backgroundColor: "rgba(0, 0, 0, 0.8)",
-    borderRadius: 5,
-    padding: 5,
-  },
-  infoText: {
-    color: "white",
-    fontSize: 12,
-  },
-});
+const getStyles = (isDarkMode) =>
+  StyleSheet.create({
+    mealItem: {
+      padding: 10,
+      backgroundColor: isDarkMode ? "#000000" : "#ffffff",
+      overflow: "hidden",
+    },
+    container: {
+      backgroundColor: isDarkMode ? "#000000" : "#ffffff",
+      borderRadius: 10,
+      elevation: 3,
+    },
+    image: {
+      borderRadius: 10,
+      width: "100%",
+      height: 200,
+    },
+    title: {
+      fontSize: 18,
+      color: isDarkMode ? "#ffffff" : "#000000",
+      fontWeight: "bold",
+    },
+    imageContainer: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    infoBox: {
+      position: "absolute",
+      bottom: 40,
+      left: 10,
+      backgroundColor: "rgba(0, 0, 0, 0.8)",
+      borderRadius: 5,
+      padding: 5,
+    },
+    infoText: {
+      color: "white",
+      fontSize: 12,
+    },
+  });
 
 export default MealItem;
