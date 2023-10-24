@@ -1,11 +1,12 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet } from "react-native";
 import { Provider } from "react-redux";
 
 import { config } from "@gluestack-ui/config";
-import { GluestackUIProvider } from "@gluestack-ui/themed";
+import { GluestackUIProvider, Icon } from "@gluestack-ui/themed";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import CategoriesScreen from "./screens/CategoriesScreen";
 import FavoriteScreen from "./screens/FavoriteScreen";
@@ -13,15 +14,52 @@ import MealDetailScreen from "./screens/MealDetailScreen";
 import MealsOverviewScreen from "./screens/MealsOverviewScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import { store } from "./store/redux/store";
+import { MaterialIcons } from "@expo/vector-icons";
+import IconButton from "./components/IconButton";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
+
+const CategoriesIcon = ({ color, size }) => (
+  <MaterialIcons name={"category"} size={size} color={color} />
+);
+
+const FavoritesIcon = ({ color, size }) => (
+  <MaterialIcons name={"favorite"} size={size} color={color} />
+);
+
+function BottomTabs() {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen
+        name="Categories"
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => CategoriesIcon({ color, size }),
+        }}
+        component={CategoriesScreen}
+      />
+      <Tab.Screen
+        name="Favorites"
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => FavoritesIcon({ color, size }),
+        }}
+        component={FavoriteScreen}
+      />
+    </Tab.Navigator>
+  );
+}
 
 function DrawerNavigator() {
   return (
     <Drawer.Navigator>
-      <Drawer.Screen name="Categories" component={CategoriesScreen} />
-      <Drawer.Screen name="Favorites" component={FavoriteScreen} />
+      <Drawer.Screen
+        name="Home"
+        component={BottomTabs}
+        options={{ title: "Home" }}
+      />
       <Drawer.Screen
         options={{
           title: "Settings",
