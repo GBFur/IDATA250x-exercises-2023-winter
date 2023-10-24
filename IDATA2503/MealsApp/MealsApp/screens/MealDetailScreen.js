@@ -1,4 +1,3 @@
-import { useLayoutEffect } from "react";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import IconButton from "../components/IconButton";
@@ -19,19 +18,15 @@ function MealDetailScreen({ route, navigation }) {
 
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => {
-        return (
-          <IconButton
-            onPress={changeFavoriteStatusHandler}
-            color="black"
-            icon={mealIsFavorite ? "star" : "star-outline"}
-          />
-        );
-      },
-    });
-  }, [navigation, changeFavoriteStatusHandler]);
+  navigation.setOptions({
+    headerRight: () => (
+      <IconButton
+        onPress={changeFavoriteStatusHandler}
+        color="#1477d4"
+        icon={mealIsFavorite ? "favorite" : "favorite-outline"}
+      />
+    ),
+  });
 
   function changeFavoriteStatusHandler() {
     if (mealIsFavorite) {
