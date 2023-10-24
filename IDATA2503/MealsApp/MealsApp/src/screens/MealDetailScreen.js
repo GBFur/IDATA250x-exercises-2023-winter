@@ -2,7 +2,7 @@ import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import Toast from "react-native-toast-message";
 import React, { useLayoutEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import IconButton from "../components/IconButton";
+import IconButton from "../components/Buttons/IconButton";
 import MealDetails from "../components/MealComponents/MealDetails";
 import { MEALS } from "../data/dummy-data";
 import { favoriteActions } from "../store/redux/favorites";
