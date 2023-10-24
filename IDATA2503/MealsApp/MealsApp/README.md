@@ -95,7 +95,7 @@ Dark mode
 ![Darkmode-Home](docs/assets/home-dark.png)
 ![Darkmode-Details](docs/assets/meal-detail-dark.png)
 
-Allergies/Vegan shown for a recipe
+Filters shown in `MealItem` image.
 
 ![Allergies](docs/assets/filters.png)
 
