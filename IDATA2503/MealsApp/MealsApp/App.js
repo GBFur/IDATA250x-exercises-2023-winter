@@ -111,13 +111,23 @@ function AppNavigator() {
   );
 }
 
+function StatusBarCustom() {
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
+  return (
+    <StatusBar
+      style={isDarkMode ? "light" : "dark"}
+      backgroundColor={isDarkMode ? "#000000" : "#FFFFFF"}
+    />
+  );
+}
+
 export default function App() {
   return (
     <>
-      <StatusBar style="dark" />
       <GluestackUIProvider config={config}>
         <Provider store={store}>
           <NavigationContainer>
+            <StatusBarCustom />
             <AppNavigator />
           </NavigationContainer>
         </Provider>
@@ -126,12 +136,3 @@ export default function App() {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#ffffff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
