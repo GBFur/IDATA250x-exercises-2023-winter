@@ -10,7 +10,7 @@ The project employs **React Navigation** for navigation between different screen
 - **FavoriteScreen**: The screen where the users favorite recepies are shown. `MealsList` is used to list the favorite meals
 - **MealsOverviewScreen**: The screen where the user can view the meals that is respect with the grid and filter settings. `MealsList` is used to list the meals.
 - **MealDetailScreen**: The screen where the user can view the specific meal. Uses the `MealDetails` component to show duration, complexitiy and affordability.
-- **SettingsScreen**: The screen where the user can toggle filters and toggle between darkmode and lightmode for the application. This screen uses `GlueStackUI` for components. 
+- **SettingsScreen**: The screen where the user can toggle filters and toggle between darkmode and lightmode for the application. This screen uses `GlueStackUI` for components.
 
 ### Components
 
@@ -101,13 +101,6 @@ Filters shown in `MealItem` image.
 
 ## Screenshots
 
-![HomeScreen](docs/assets/home.png)
+![HomeScreen](docs/assets/home.png) ![RecipiesScreen](docs/assets/recipies.png) ![DetailScreen](docs/assets/detail.png)
 
-![RecipiesScreen](docs/assets/recipies.png)
-
-![DetailScreen](docs/assets/detail.png)
-
-![Toast](docs/assets/toast.png)
-![ToastRemoved](docs/assets/removed.png)
-
-![Settings](docs/assets/settings.png)
+![Toast](docs/assets/toast.png) ![ToastRemoved](docs/assets/removed.png) ![Settings](docs/assets/settings.png)
