@@ -8,7 +8,6 @@ function CategoryGridTile({ title, color, onPress }) {
         bg={color}
         onPress={() => {
           onPress();
-          console.log("pressed");
         }}
         sx={{ ":pressed": { opacity: 0.4 } }}
       >

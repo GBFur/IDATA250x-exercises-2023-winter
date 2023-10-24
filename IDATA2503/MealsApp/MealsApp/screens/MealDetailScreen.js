@@ -2,12 +2,14 @@ import { useLayoutEffect } from "react";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import IconButton from "../components/IconButton";
-import MealDetails from "../components/MealDetails";
+import MealDetails from "../components/MealComponents/MealDetails";
 import { MEALS } from "../data/dummy-data";
 import { favoriteActions } from "../store/redux/favorites";
 
+/**
+ * Screen for displaying details of a meal.
+ */
 function MealDetailScreen({ route, navigation }) {
-  // const favoriteMealContext = useContext(FavoritesContext);
   const favoriteMealIds = useSelector((state) => state.favoriteMeals.ids);
   const dispatch = useDispatch();
 
@@ -33,11 +35,9 @@ function MealDetailScreen({ route, navigation }) {
 
   function changeFavoriteStatusHandler() {
     if (mealIsFavorite) {
-      //favoriteMealContext.removeFavorite(mealId);
       dispatch(favoriteActions.removeFavorite(mealId));
     } else {
       dispatch(favoriteActions.addFavorite(mealId));
-      //favoriteMealContext.addFavorite(mealId);
     }
   }
 

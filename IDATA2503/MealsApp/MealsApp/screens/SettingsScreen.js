@@ -1,8 +1,12 @@
-import { Box, Divider, Switch, Text, Pressable } from "@gluestack-ui/themed";
+import { Box, Divider, Pressable, Switch, Text } from "@gluestack-ui/themed";
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { filterActions } from "../store/redux/filter";
 
+/**
+ * Settings screen for the app.
+ * Handles toggling of filters.
+ */
 function SettingsScreen() {
   const dispatch = useDispatch();
   const filters = useSelector((state) => state.filters);
@@ -38,7 +42,10 @@ function SettingsScreen() {
           <Text size="xl">Gluten-free</Text>
           <Text size="xs">Only include gluten-free meals.</Text>
         </Box>
-        <Switch value={filters.isGlutenFree} onValueChange={handleGlutenFreeToggle}/>
+        <Switch
+          value={filters.isGlutenFree}
+          onValueChange={handleGlutenFreeToggle}
+        />
       </Pressable>
 
       <Divider />
@@ -56,7 +63,10 @@ function SettingsScreen() {
           <Text size="xl">Lactose-free</Text>
           <Text size="xs">Only include lactose-free meals.</Text>
         </Box>
-        <Switch value={filters.isLactoseFree} onValueChange={handleLactoseFreeToggle}/>
+        <Switch
+          value={filters.isLactoseFree}
+          onValueChange={handleLactoseFreeToggle}
+        />
       </Pressable>
 
       <Divider />
@@ -74,7 +84,10 @@ function SettingsScreen() {
           <Text size="xl">Vegetarian</Text>
           <Text size="xs">Only include vegetarian meals.</Text>
         </Box>
-        <Switch value={filters.isVegetarian} onValueChange={handleVegetarianToggle}/>
+        <Switch
+          value={filters.isVegetarian}
+          onValueChange={handleVegetarianToggle}
+        />
       </Pressable>
 
       <Divider />
@@ -92,7 +105,7 @@ function SettingsScreen() {
           <Text size="xl">Vegan</Text>
           <Text size="xs">Only include vegan meals</Text>
         </Box>
-        <Switch value={filters.isVegan} onValueChange={handleVeganToggle}/>
+        <Switch value={filters.isVegan} onValueChange={handleVeganToggle} />
       </Pressable>
     </Box>
   );

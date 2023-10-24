@@ -1,4 +1,4 @@
-import { View, FlatList } from "react-native";
+import { FlatList, View } from "react-native";
 import MealItem from "./MealItem";
 
 function MealsList({ displayedMeals }) {
@@ -13,7 +13,7 @@ function MealsList({ displayedMeals }) {
       isGlutenFree: itemData.item.isGlutenFree,
       isVegan: itemData.item.isVegan,
       isVegetarian: itemData.item.isVegetarian,
-      isLactoseFree: itemData.item.isLactoseFree
+      isLactoseFree: itemData.item.isLactoseFree,
     };
 
     return <MealItem {...mealItemProps} />;
