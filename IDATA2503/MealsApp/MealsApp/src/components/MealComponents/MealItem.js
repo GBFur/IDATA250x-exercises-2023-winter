@@ -3,6 +3,9 @@ import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import MealDetails from "./MealDetails";
 import { useSelector } from "react-redux";
 
+/**
+ * Displays a meal item.
+ */
 function MealItem({
   id,
   title,
@@ -15,8 +18,8 @@ function MealItem({
   isVegetarian,
   isLactoseFree,
 }) {
-  const navigation = useNavigation();
 
+  const navigation = useNavigation();
   function selectMealItemHandler() {
     navigation.navigate("MealDetail", { mealId: id });
   }

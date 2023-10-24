@@ -1,5 +1,8 @@
 import { Box, Pressable, Text } from "@gluestack-ui/themed";
 
+/**
+ * A grid tile for a category.
+ */
 function CategoryGridTile({ title, color, onPress }) {
   return (
     <Box style={styles.gridItem}>
@@ -23,8 +26,8 @@ const styles = {
   gridItem: {
     height: 150,
     padding: 10,
-    width: "49%", // slightly less than half to account for margins or gaps
-    marginBottom: 4, // for spacing between rows
+    width: "49%",
+    marginBottom: 4,
   },
   button: {
     flex: 1,

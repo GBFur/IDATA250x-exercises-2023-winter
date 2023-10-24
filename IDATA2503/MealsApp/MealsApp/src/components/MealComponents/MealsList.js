@@ -1,6 +1,9 @@
 import { FlatList, View } from "react-native";
 import MealItem from "./MealItem";
 
+/**
+ * Displays a list of meals.
+ */
 function MealsList({ displayedMeals }) {
   function renderMealItem(itemData) {
     const mealItemProps = {

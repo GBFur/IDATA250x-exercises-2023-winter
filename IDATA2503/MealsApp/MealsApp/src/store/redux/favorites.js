@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+/**
+ * A redux slice for favorites.
+ * This slice contains the ids of the favorite meals,
+ * and the actions for adding and removing a favorite meal.
+ */
 const favoriteSlice = createSlice({
   name: "favorites",
   initialState: {

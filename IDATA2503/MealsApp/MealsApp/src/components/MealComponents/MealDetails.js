@@ -1,6 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 
+/**
+ * Displays the meal details.
+ */
 function MealDetails({ duration, complexity, affordability }) {
   const isDarkMode = useSelector((state) => state.theme.isDarkMode);
   const styles = getStyles(isDarkMode);

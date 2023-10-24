@@ -1,6 +1,9 @@
-// themeSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
+/**
+ * A redux slice for the theme.
+ * This slice is used to toggle the theme. (dark/light)
+ */
 const themeSlice = createSlice({
   name: "theme",
   initialState: {

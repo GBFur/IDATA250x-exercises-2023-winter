@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+/**
+ * A redux slice for filters.
+ * This slice is used to filter the meals.
+ */
 const filterSlice = createSlice({
   name: "filters",
   initialState: {
