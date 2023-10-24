@@ -2,14 +2,41 @@ import { Box, Divider, Pressable, Switch, Text } from "@gluestack-ui/themed";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterActions } from "../store/redux/filter";
+import { themeActions } from "../store/redux/themeSlice";
 
-/**
- * Settings screen for the app.
- * Handles toggling of filters.
- */
+const SettingToggle = ({
+  title,
+  description,
+  value,
+  onValueChange,
+  isDarkMode,
+}) => (
+  <Pressable
+    space="md"
+    flexDirection="row"
+    justifyContent="space-between"
+    alignItems="center"
+    py="$4"
+    px="$4"
+    onPress={onValueChange}
+    backgroundColor={isDarkMode ? "#000000" : "#FFFFFF"} // Conditional styling based on dark mode
+  >
+    <Box>
+      <Text size="xl" color={isDarkMode ? "white" : "black"}>
+        {title}
+      </Text>
+      <Text size="xs" color={isDarkMode ? "white" : "black"}>
+        {description}
+      </Text>
+    </Box>
+    <Switch value={value} onValueChange={onValueChange} />
+  </Pressable>
+);
+
 function SettingsScreen() {
   const dispatch = useDispatch();
   const filters = useSelector((state) => state.filters);
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
 
   const handleGlutenFreeToggle = () => {
     dispatch(filterActions.setGlutenFree(!filters.isGlutenFree));
@@ -27,86 +54,55 @@ function SettingsScreen() {
     dispatch(filterActions.setVegan(!filters.isVegan));
   };
 
+  const handleDarkModeToggle = () => {
+    dispatch(themeActions.toggleTheme());
+  };
+
   return (
-    <Box px="$2">
-      <Pressable
-        space="md"
-        flexDirection="row"
-        justifyContent="space-between"
-        alignItems="center"
-        py="$4"
-        px="$4"
-        onPress={handleGlutenFreeToggle}
-      >
-        <Box>
-          <Text size="xl">Gluten-free</Text>
-          <Text size="xs">Only include gluten-free meals.</Text>
-        </Box>
-        <Switch
-          value={filters.isGlutenFree}
-          onValueChange={handleGlutenFreeToggle}
-        />
-      </Pressable>
-
+    <Box px="$2" flex={1} backgroundColor={isDarkMode ? "#000000" : "#ffffff"}>
+      <SettingToggle
+        title="Gluten-free"
+        description="Only include gluten-free meals."
+        value={filters.isGlutenFree}
+        onValueChange={handleGlutenFreeToggle}
+        isDarkMode={isDarkMode}
+      />
       <Divider />
 
-      <Pressable
-        space="md"
-        flexDirection="row"
-        justifyContent="space-between"
-        alignItems="center"
-        py="$4"
-        px="$4"
-        onPress={handleLactoseFreeToggle}
-      >
-        <Box>
-          <Text size="xl">Lactose-free</Text>
-          <Text size="xs">Only include lactose-free meals.</Text>
-        </Box>
-        <Switch
-          value={filters.isLactoseFree}
-          onValueChange={handleLactoseFreeToggle}
-        />
-      </Pressable>
-
+      <SettingToggle
+        title="Lactose-free"
+        description="Only include lactose-free meals."
+        value={filters.isLactoseFree}
+        onValueChange={handleLactoseFreeToggle}
+        isDarkMode={isDarkMode}
+      />
       <Divider />
 
-      <Pressable
-        space="md"
-        flexDirection="row"
-        justifyContent="space-between"
-        alignItems="center"
-        py="$4"
-        px="$4"
-        onPress={handleVegetarianToggle}
-      >
-        <Box>
-          <Text size="xl">Vegetarian</Text>
-          <Text size="xs">Only include vegetarian meals.</Text>
-        </Box>
-        <Switch
-          value={filters.isVegetarian}
-          onValueChange={handleVegetarianToggle}
-        />
-      </Pressable>
-
+      <SettingToggle
+        title="Vegetarian"
+        description="Only include vegetarian meals."
+        value={filters.isVegetarian}
+        onValueChange={handleVegetarianToggle}
+        isDarkMode={isDarkMode}
+      />
       <Divider />
 
-      <Pressable
-        space="md"
-        flexDirection="row"
-        justifyContent="space-between"
-        alignItems="center"
-        py="$4"
-        px="$4"
-        onPress={handleVeganToggle}
-      >
-        <Box>
-          <Text size="xl">Vegan</Text>
-          <Text size="xs">Only include vegan meals</Text>
-        </Box>
-        <Switch value={filters.isVegan} onValueChange={handleVeganToggle} />
-      </Pressable>
+      <SettingToggle
+        title="Vegan"
+        description="Only include vegan meals."
+        value={filters.isVegan}
+        onValueChange={handleVeganToggle}
+        isDarkMode={isDarkMode}
+      />
+      <Divider />
+
+      <SettingToggle
+        title="Dark Mode"
+        description="Toggle dark mode on/off."
+        value={isDarkMode}
+        onValueChange={handleDarkModeToggle}
+        isDarkMode={isDarkMode}
+      />
     </Box>
   );
 }
