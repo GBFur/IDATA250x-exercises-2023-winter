@@ -26,7 +26,7 @@ const styles = {
   gridItem: {
     height: 150,
     padding: 10,
-    width: "49%",
+    width: "50%",
     marginBottom: 4,
   },
   button: {
