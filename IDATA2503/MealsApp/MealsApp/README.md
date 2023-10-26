@@ -78,7 +78,7 @@ The project employs **React Navigation** for navigation between different screen
       - 📜filter.js
       - 📜store.js
       - 📜themeSlice.js
-  - 📜App.js
+- 📜App.js
 
 ## Use Cases
 
